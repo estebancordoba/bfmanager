@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/views/templates/manager/templateManager.xhtml">
+               
+	<ui:define name="breadcrumb">
+		<li>Cuestionarios</li>
+        <li>/</li>    	
+        <li><p:link outcome="results">Resultados</p:link></li>                
+    </ui:define>               
+                
+    <ui:define name="content">    	
+    	
+    	<p:dialog widgetVar="dlgGroup" header="Elija un grupo" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true">    		
+       		<h:form id="formGroup">
+				<p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">	  		                                		                               		
+	                <p:selectOneMenu required="true" requiredMessage="Debe elegir un grupo" id="group" value="#{showStatisticsBean.id_group}" placeholder="Grupo"
+	                	             effect="fade" filter="true" filterMatchMode="startsWith">
+	                	<f:selectItem itemLabel="Elegir Grupo" itemValue="#{null}" noSelectionOption="true" />
+	                	<f:selectItems value="#{groupsBean.getSurveyGroupsxIdSurvey(surveysBean.survey.idSurvey)}" var="u" itemLabel="#{groupsBean.getGroupxId(u.idGroup).name}" itemValue="#{u.idGroup}"/>
+					</p:selectOneMenu>					
+					
+					<h:commandLink actionListener="#{showStatisticsBean.prepararDatos(showStatisticsBean.id_group,groupsBean.getGroupxId(showStatisticsBean.id_group).name)}" action="/views/manager/statisticsSurvey.xhtml">
+		            	<p:button icon="ui ui-icon-slideshow" value="Mostrar"/>
+		            </h:commandLink>
+	            </p:panelGrid>		            
+           	</h:form>
+       	</p:dialog>
+     
+                <h:form id="formEncuestas">  
+                	          						
+					<p:dataTable id="tblE" value="#{surveysBean.getSurveysxIdManager(usersBean.obtenerUsuario().idUser)}" var="s" emptyMessage="No hay encuestas disponibles"
+								 rows="10" paginator="true" paginatorPosition="bottom"
+								 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								 rowsPerPageTemplate="5,10,15">
+						<f:facet name="header">Encuestas registradas</f:facet>
+								 
+					    <p:column headerText="Titulo" filterBy="#{s.title}" filterMatchMode="contains">
+					        <h:outputText value="#{s.title}" />
+					    </p:column>
+					 
+					    <p:column headerText="Descripcion Corta" filterBy="#{s.shortDescription}" filterMatchMode="contains">
+					        <h:outputText value="#{s.shortDescription}" />
+					    </p:column>
+					 
+					    <p:column headerText="Dueño" filterBy="#{s.userOwner.name}" filterMatchMode="contains">						    	
+					        <h:outputText value="#{s.userOwner.name}" />
+					    </p:column>
+					    
+					    <p:column style="width:15%;text-align: center">
+			            	
+				            <p:commandButton update=":formGroup" actionListener="#{surveysBean.asignarSurvey(s.idSurvey)}" oncomplete="PF('dlgGroup').show()"  icon="ui-icon-show-chart" title="Estadisticas"/>
+				            
+				            <h:commandLink actionListener="#{surveysBean.asignarSurvey(s.idSurvey)}" action="/views/manager/responses.xhtml" immediate="true">
+				            	<p:button icon="ui-icon-reply" title="Resultados"/>
+				            </h:commandLink>
+				            
+				            <h:commandLink actionListener="#{surveysBean.asignarSurvey(s.idSurvey)}" action="/views/manager/responsesBFI.xhtml" immediate="true" rendered="#{s.surveyType.idSurveyType==2}">
+			            		<p:button icon="ui-icon-filter-5" title="Resultados Big Five"/>
+			            	</h:commandLink> 				                
+					        
+				        </p:column>
+					</p:dataTable>					
+                </h:form>				
+            </ui:define>
+</ui:composition>

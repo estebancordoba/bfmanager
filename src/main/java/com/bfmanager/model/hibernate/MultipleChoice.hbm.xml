@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 2/08/2017 11:42:13 PM by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="bfmanager" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.bfmanager.model.hibernate.MultipleChoice" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="multiple_choice" lazy="false">
+        <id name="idMultipleChoice" type="java.lang.Long">
+            <column name="id_multiple_choice"/>
+            <generator class="identity"/>
+        </id>
+        <property generated="never" lazy="false" name="description" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="description" not-null="true"/>
+        </property>    
+        <property generated="never" lazy="false" name="question" optimistic-lock="true" type="java.lang.Long" unique="false">
+            <column name="question"/>
+        </property> 
+        <!-- <many-to-one name="question" class="com.bfmanager.model.hibernate.Questions" fetch="select">
+            <column name="question" not-null="true" />
+        </many-to-one> -->
+    </class>
+</hibernate-mapping>

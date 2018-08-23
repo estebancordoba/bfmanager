@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/views/templates/manager/templateManager.xhtml">
+    
+    <ui:define name="breadcrumb">
+    	<li>Cuestionarios</li>
+        <li>/</li>
+        <li>Vista Previa</li>        
+    </ui:define> 
+          
+    <ui:define name="content"> 
+                <h:form id="formShowSurveys">
+	                <p:graphicImage value="#{showSurveyBean.colocarBanner(surveysBean.survey.idSurvey)}" height="100%" width="100%" />                	
+					<p:panel binding="#{showSurveyBean.panels(surveysBean.survey.idSurvey)}" rendered="true">
+					<br/>
+					<div style="text-align:center;">
+						<p:commandButton style="width: 50%; margin: 0 auto; display: inline-block;" icon="ui-icon-check" value="Enviar"/>
+					</div>					
+					</p:panel>				
+				</h:form>
+				<br/><br/>
+				<center>
+					<h:outputLabel style="font-size: 12px; opacity: 0.60;" value="#{showSurveyBean.colocarCopyright(surveysBean.survey.idSurvey)}" />
+				</center>
+								
+				<p:stack icon="/resources/images/menu_stack.png" expanded="true">		    
+				    <p:menuitem value="#{cw_language.instructions}" icon="/resources/images/instrucciones.png" url="#" onclick="PF('dlgI').show()"/>
+				</p:stack>
+				<p:dialog widgetVar="dlgI" modal="true" header="#{cw_language.instructions}" resizable="false" showEffect="clip" hideEffect="clip" width="60%">
+					<h:outputText value="#{showSurveyBean.instrucciones}" escape="false"/>
+				</p:dialog>	 					
+            </ui:define>
+</ui:composition>

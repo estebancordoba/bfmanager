@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 15/10/2017 09:46:32 PM by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="bfmanager" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.bfmanager.model.hibernate.SurveysType" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="surveys_type" lazy="false">
+        <id name="idSurveyType" type="java.lang.Integer">
+            <column name="id_survey_type"/>
+            <generator class="identity"/>
+        </id>
+        <property generated="never" lazy="false" name="type" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="type"/>
+        </property>
+        <property generated="never" lazy="false" name="description" optimistic-lock="true" type="string" unique="false">
+            <column length="100" name="description"/>
+        </property>
+    </class>
+</hibernate-mapping>

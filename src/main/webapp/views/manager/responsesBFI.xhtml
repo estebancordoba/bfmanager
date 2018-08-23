@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/views/templates/manager/templateManager.xhtml">
+    
+    <ui:define name="breadcrumb">
+    	<li>Cuestionarios</li>
+        <li>/</li>    	
+        <li><p:link outcome="results">Resultados</p:link></li>
+        <li>/</li>    	
+        <li>Respuestas BFI</li>        
+    </ui:define> 
+                
+    <ui:define name="head"> 
+    	<h:outputScript name="js/FileSaver.min.js"/>
+		<h:outputScript name="js/canvas-toBlob.js"/>
+		<h:outputScript name="js/Chart.min.js"/>
+		<h:outputScript name="js/jsValidaciones.js"/>
+    </ui:define> 
+                
+    <ui:define name="content">            	
+        <p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="6000" escape="false" />
+                                 
+		<p:panel id="pnl" header="Resultados BigFive">
+			<h:form id="formGroup">
+				<p:panelGrid columns="2" style="width: 25%;" layout="grid" styleClass="ui-panelgrid-blank form-group">	  		                                		                               		
+	                <p:selectOneMenu onchange=":formBigFive" id="group" value="#{answersBean.id_group}" placeholder="Grupo"
+	                	             effect="fade" filter="true" filterMatchMode="startsWith">
+	                	<f:selectItem itemLabel="Elegir Grupo" itemValue="#{null}" noSelectionOption="true" />
+	                	<f:selectItems value="#{groupsBean.getSurveyGroupsxIdSurvey(surveysBean.survey.idSurvey)}" var="u" itemLabel="#{groupsBean.getGroupxId(u.idGroup).name}" itemValue="#{u.idGroup}"/>
+					</p:selectOneMenu>
+					
+					<p:commandButton value="Mostrar" icon="ui ui-icon-slideshow" update=":formBigFive"/>					         	
+	            </p:panelGrid>		            
+            </h:form>
+			<h:form id="formBigFive">
+			
+				<p:dataTable id="tblBFI" emptyMessage="No hay resultados disponibles"									
+						 rows="10" paginator="true" paginatorPosition="bottom"
+						 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						 rowsPerPageTemplate="5,10,15" 
+						 value="#{bigFiveBean.getUsersxIdSurveyIdGroup(surveysBean.survey.idSurvey,answersBean.id_group)}" var="u">
+						 
+						 <p:column headerText="Usuario" filterBy="#{usersBean.getUserXId(u.idUser).user}" filterMatchMode="contains">
+				        	<h:outputText value="#{usersBean.getUserXId(u.idUser).user}"  />
+				    	 </p:column>
+						 
+						 <p:columns value="#{bigFiveBean.getDimensionsxIdSurvey(surveysBean.survey.idSurvey)}" var="d">
+						 	<f:facet name="header">
+						         <h:outputText value="#{d.name}" />
+						     </f:facet>
+						         <h:outputText value="#{bigFiveBean.getBfResultxIdUserIdDimIdGroup(u.idUser,d.idBfDimension,answersBean.id_group).result}" />	
+						 </p:columns>
+						 
+						 <p:column style="width:20%;text-align: center" exportable="false">
+								<p:commandButton update=":formBigFive:dialogR" actionListener="#{bigFiveBean.chartBigFive(u.idUser, surveysBean.survey.idSurvey,answersBean.id_group)}" oncomplete="PF('dlgRes').show()"  icon="ui-icon-bubble-chart" title="Visualizar"/>
+						    			            
+					            <p:commandButton update=":formBigFive" actionListener="#{bigFiveBean.eliminarResultUser(u.idUser, surveysBean.survey.idSurvey,answersBean.id_group)}" icon="ui-icon-trash" title="Eliminar">
+					            	<p:confirm header="Confirmación" message="Desea eliminar el registro?" icon="ui-icon-alert" />
+					            </p:commandButton>
+				        </p:column>
+						 
+				</p:dataTable>
+				
+				<h3>Exportar datos: </h3>
+				
+				<p:commandButton ajax="false" value="Exportar para CW-TEAMS" actionListener="#{bigFiveBean.exportarCW(surveysBean.survey.idSurvey,groupsBean.getGroupxId(answersBean.id_group))}" icon="ui-icon-group-work" title="CW-TEAMS">
+					        <p:fileDownload value="#{bigFiveBean.fileDownload}" contentDisposition="attachment" />
+				</p:commandButton>
+	            <br/><br/>
+                                             
+                <h:commandLink>
+                    <p:graphicImage name="images/csv.png" />
+                    <p:dataExporter type="csv" target="tblBFI" fileName="bigfive_#{surveysBean.survey.title}_#{groupsBean.getGroupxId(answersBean.id_group).name}" pageOnly="false" />
+                </h:commandLink>
+				
+				<p:dialog position="center,center-20%" id="dialogR" header="Resultados: #{bigFiveBean.user_chart.name} #{bigFiveBean.user_chart.surname} (#{bigFiveBean.user_chart.user})" widgetVar="dlgRes" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="50%">																									
+					<p:panel header="Dimensiónes">	
+		            	 <div style="text-align:center;">
+							<p:commandButton id="expDim" type="button" style="margin: 0 auto; display: inline-block;" icon="ui-icon-help"/>
+						    <p:overlayPanel for="expDim" hideEffect="fade" dynamic="true" style="width: 25%;">
+						    	<p:dataTable value="#{bigFiveBean.getDimensionsxIdSurvey(surveysBean.survey.idSurvey)}" var="d"
+									 emptyMessage="No hay dimensiones disponibles">
+							        <p:column headerText="Dimension">
+							            <h:outputText value="#{d.name}" />
+							        </p:column>
+							        <p:column headerText="Adjetivo">
+							            <h:outputText value="#{d.description}" />
+							        </p:column>							        
+							    </p:dataTable>									    										        
+						    </p:overlayPanel>
+						    
+						    <p:commandButton id="expIDim" type="button" style="margin: 0 auto; display: inline-block;" icon="ui-icon-image" value="Guardar" onclick="exportCanvas()"/>
+						    
+						    <p:separator/>
+						    <canvas id="chart"/>
+						</div> 					             
+			        </p:panel>	        		
+			    </p:dialog>
+				                                                 	
+			</h:form>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</p:panel>	
+	</ui:define>
+</ui:composition>

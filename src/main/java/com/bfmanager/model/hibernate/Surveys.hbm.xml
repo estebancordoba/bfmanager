@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 15/10/2017 09:46:32 PM by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="bfmanager" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.bfmanager.model.hibernate.Surveys" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="surveys" lazy="false">
+        <id name="idSurvey" type="java.lang.Integer">
+            <column name="id_survey"/>
+            <generator class="identity"/>
+        </id>
+        <property generated="never" lazy="false" name="title" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="title" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="description" optimistic-lock="true" type="string" unique="false">
+            <column length="65535" name="description"/>
+        </property>
+        <many-to-one name="userOwner" class="com.bfmanager.model.hibernate.Users" fetch="select">
+            <column name="user_owner" not-null="true" />
+        </many-to-one> 
+        <property generated="never" lazy="false" name="instructions" optimistic-lock="true" type="string" unique="false">
+            <column length="65535" name="instructions"/>
+        </property>
+        <property generated="never" lazy="false" name="shortDescription" optimistic-lock="true" type="string" unique="false">
+            <column length="100" name="short_description" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="free" optimistic-lock="true" type="java.lang.Boolean" unique="false">
+            <column name="free"/>
+        </property>
+        <property generated="never" lazy="false" name="banner" optimistic-lock="true" type="binary" unique="false">
+            <column name="banner"/>
+        </property>
+        <property generated="never" lazy="false" name="copyright" optimistic-lock="true" type="string" unique="false">
+            <column length="1000" name="copyright"/>
+        </property>
+        <property generated="never" lazy="false" name="onlyOnce" optimistic-lock="true" type="java.lang.Boolean" unique="false">
+            <column name="onlyOnce"/>
+        </property>
+        <property generated="never" lazy="false" name="activated" optimistic-lock="true" type="java.lang.Boolean" unique="false">
+            <column name="activated"/>
+        </property>
+        <many-to-one name="surveyType" class="com.bfmanager.model.hibernate.SurveysType" fetch="select">
+            <column name="survey_type" not-null="true" />
+        </many-to-one> 
+    </class>
+</hibernate-mapping>

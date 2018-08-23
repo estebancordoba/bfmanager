@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 18/10/2017 10:25:03 PM by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="bfmanager" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.bfmanager.model.hibernate.BfResults" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="bf_results" lazy="false">
+        <id name="idBfResult" type="java.lang.Integer">
+            <column name="id_bf_result"/>
+            <generator class="identity"/>
+        </id>
+        <property generated="never" lazy="false" name="result" optimistic-lock="true" type="double" unique="false">
+            <column name="result" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="idBfDimension" optimistic-lock="true" type="long" unique="false">
+            <column name="id_bf_dimension" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="idUser" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="id_user"/>
+        </property>
+        <property generated="never" lazy="false" name="idSurvey" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="id_survey"/>
+        </property>
+        <property generated="never" lazy="false" name="idGroup" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="id_group"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 15/08/2017 01:35:46 PM by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="bfmanager" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.bfmanager.model.hibernate.Questions" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="questions" lazy="false">
+        <id name="idQuestion" type="java.lang.Long">
+            <column name="id_question"/>
+            <generator class="identity"/>
+        </id>
+        <property generated="never" lazy="false" name="title" optimistic-lock="true" type="string" unique="false">
+            <column length="200" name="title" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="required" optimistic-lock="true" type="java.lang.Boolean" unique="false">
+            <column name="required"/>
+        </property>       
+  
+        <property generated="never" lazy="false" name="help" optimistic-lock="true" type="string" unique="false">
+            <column length="100" name="help"/>
+        </property>
+        
+        <property generated="never" lazy="false" name="survey" optimistic-lock="true" type="integer" unique="false">
+            <column name="survey"/>
+        </property>
+               
+        <property generated="never" lazy="false" name="showStats" optimistic-lock="true" type="java.lang.Boolean" unique="false">
+            <column name="showStats"/>
+        </property>
+
+        <property generated="never" lazy="false" name="showResults" optimistic-lock="true" type="java.lang.Boolean" unique="false">
+            <column name="showResults"/>
+        </property>
+        
+        <!-- <many-to-one name="survey" class="com.bfmanager.model.hibernate.Surveys" fetch="select">
+            <column name="survey" not-null="true" />
+        </many-to-one> -->
+        <many-to-one name="type" class="com.bfmanager.model.hibernate.QuestionsType" fetch="select">
+            <column name="type" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

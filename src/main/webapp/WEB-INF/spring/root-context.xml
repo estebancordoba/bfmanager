@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+ 	
+	<context:property-placeholder location="settings/Settings.properties"/>
+
+	<bean id="DataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">		
+		<property name="driverClassName" value="${driverDB}" />
+		<property name="url" value="jdbc:${typeDB}://${ipDB}:${portDB}/${nameDB}" />
+		<property name="username" value="${userDB}" />
+		<property name="password" value="${passwordDB}" />
+	</bean>
+
+	<bean id="defaulLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" />
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="DataSource" />
+
+		<property name="configLocations">
+			<list>
+				<value>/WEB-INF/hibernate.cfg.xml</value>
+			</list>
+		</property>
+	</bean>	
+	
+ 	<bean id="UsersBean" class="com.bfmanager.service.UsersServiceImpl">
+		<property name="usersDAO" ref="usersDAO" />
+	</bean>
+
+	<bean id="usersDAO" class="com.bfmanager.model.dao.UsersDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="SurveysServiceBean" class="com.bfmanager.service.SurveysServiceImpl">
+		<property name="surveysDAO" ref="surveysDAO" />
+	</bean>
+
+	<bean id="surveysDAO" class="com.bfmanager.model.dao.SurveysDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+ 	<bean id="QuestionsServiceBean" class="com.bfmanager.service.QuestionsServiceImpl">
+		<property name="questionsDAO" ref="questionsDAO" />
+	</bean>
+
+	<bean id="questionsDAO" class="com.bfmanager.model.dao.QuestionsDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="QuestionsAllServiceBean" class="com.bfmanager.service.QuestionsAllServiceImpl">
+		<property name="questionsAllDAO" ref="questionsAllDAO" />
+	</bean>
+
+	<bean id="questionsAllDAO" class="com.bfmanager.model.dao.QuestionsAllDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean> 	
+	
+	<bean id="AnswersServiceBean" class="com.bfmanager.service.AnswersServiceImpl">
+		<property name="answersDAO" ref="answersDAO" />
+	</bean>
+
+	<bean id="answersDAO" class="com.bfmanager.model.dao.AnswersDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean> 
+	
+	<bean id="RatingsServiceBean" class="com.bfmanager.service.RatingsServiceImpl">
+		<property name="ratingsDAO" ref="ratingsDAO" />
+	</bean>
+
+	<bean id="ratingsDAO" class="com.bfmanager.model.dao.RatingsDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="BigFiveServiceBean" class="com.bfmanager.service.BigFiveServiceImpl">
+		<property name="bigFiveDAO" ref="bigFiveDAO" />
+	</bean>
+
+	<bean id="bigFiveDAO" class="com.bfmanager.model.dao.BigFiveDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="GroupsServiceBean" class="com.bfmanager.service.GroupsServiceImpl">
+		<property name="groupsDAO" ref="groupsDAO" />
+	</bean>
+
+	<bean id="groupsDAO" class="com.bfmanager.model.dao.GroupsDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+		 
+	<tx:annotation-driven transaction-manager="txManager" />
+
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+</beans>

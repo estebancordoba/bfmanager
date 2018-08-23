@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/views/templates/guest/templateGuest.xhtml">
+                
+	<ui:define name="head"> 
+    	<h:outputScript name="js/FileSaver.min.js"/>
+		<h:outputScript name="js/canvas-toBlob.js"/>
+		<h:outputScript name="js/Chart.min.js"/>
+		<h:outputScript name="js/jsValidaciones.js"/>
+    </ui:define>
+    
+    <ui:define name="breadcrumb">
+    	<li>Cuestionario</li>        
+    </ui:define> 
+	                
+    <ui:define name="content">
+    			<p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="6000" escape="false" />
+    
+    			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+				    <p:graphicImage name="images/ajaxloadingbar.gif" />
+				</p:dialog>
+    
+                <h:form id="formShowSurveys">
+                	<p:graphicImage value="#{showSurveyBean.colocarBanner(surveysBean.survey.idSurvey)}" height="100%" width="100%" />
+                	
+					<p:panel binding="#{showSurveyBean.panels(surveysBean.survey.idSurvey)}" rendered="true"/>
+					
+					<br/>
+					<div style="text-align:center;">
+						<p:commandButton style="width: 50%; margin: 0 auto; display: inline-block;" icon="ui-icon-check" value="Enviar" action="#{showSurveyBean.saveAnswers(true)}" type="submit" update=":formShowSurveys"/>
+					</div>			
+				</h:form>
+					
+				<br/><br/>
+				<center>
+					<h:outputLabel style="font-size: 12px; opacity: 0.60;" value="#{showSurveyBean.colocarCopyright(surveysBean.survey.idSurvey)}" />
+				</center>
+				
+				<p:stack icon="/resources/images/menu_stack.png" expanded="true">		    
+				    <p:menuitem value="#{language.instructions}" icon="/resources/images/instrucciones.png" url="#" onclick="PF('dlgI').show()"/>
+				</p:stack>
+				
+				<p:dialog rendered="#{surveysBean.survey.surveyType.idSurveyType==1?true:false}" widgetVar="dlgRes" modal="true" header="#{cw_language.success}!" resizable="false" showEffect="clip" hideEffect="clip">
+					<h:outputText value="#{language.answer_saved}" />
+					<p:ajax event="close" listener="#{showSurveyBean.redireccionar(1)}" />
+				</p:dialog>
+				
+				<p:dialog rendered="#{surveysBean.survey.surveyType.idSurveyType==2?true:false}" position="center,center-20%" header="#{cw_language.success}! #{cw_language.answer_saved}" widgetVar="dlgRes" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="50%">
+					<p:ajax event="close" resetValues="true" listener="#{showSurveyBean.redireccionar(1)}" />																
+					<p:panel header="Dimensiónes" id="pRadar1">	
+		            	 <div style="text-align:center;">
+							<p:commandButton id="expDim" type="button" style="margin: 0 auto; display: inline-block;" icon="ui-icon-help"/>
+						    <p:overlayPanel for="expDim" hideEffect="fade" dynamic="true" style="width: 25%;">
+						    	<p:dataTable value="#{bigFiveBean.getDimensionsxIdSurvey(surveysBean.survey.idSurvey)}" var="d"
+									 emptyMessage="No hay dimensiones disponibles">
+							        <p:column headerText="Dimension">
+							            <h:outputText value="#{d.name}" />
+							        </p:column>
+							        <p:column headerText="Adjetivo">
+							            <h:outputText value="#{d.description}" />
+							        </p:column>							        
+							    </p:dataTable>									    										        
+						    </p:overlayPanel>
+						    
+						    <p:commandButton id="expIDim" type="button" style="margin: 0 auto; display: inline-block;" icon="ui-icon-image" value="Guardar" onclick="exportCanvas()"/>
+						    
+						    <p:separator/>
+						    <canvas id="chart"/>
+						</div> 					             
+			        </p:panel>	        		
+			    </p:dialog>
+				
+				<p:dialog widgetVar="dlgI" modal="true" header="#{language.instructions}" resizable="false" showEffect="clip" hideEffect="clip" width="60%">
+					<h:outputText value="#{showSurveyBean.instrucciones}" escape="false"/>
+				</p:dialog>
+						 					
+      </ui:define>
+</ui:composition>

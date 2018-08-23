@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/views/templates/admin/templateAdmin.xhtml">
+                
+    <ui:define name="content">            	
+               <h:form id="formEncuestas">
+               						
+					<p:dataTable id="tblE" value="#{surveysBean.surveys}" var="s" emptyMessage="No hay encuestas disponibles"
+								 rows="10" paginator="true" paginatorPosition="bottom"
+								 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								 rowsPerPageTemplate="5,10,15" filteredValue="#{surveysBean.filterSurveys}" widgetVar="tblE">
+						<f:facet name="header">Cuestionarios registrados</f:facet>
+								 
+					    <p:column headerText="Titulo" filterBy="#{s.title}" filterMatchMode="contains">
+					        <h:outputText value="#{s.title}" />
+					    </p:column>
+					 
+					    <p:column headerText="Descripcion Corta" filterBy="#{s.shortDescription}" filterMatchMode="contains">
+					        <h:outputText value="#{s.shortDescription}" />
+					    </p:column>
+					 
+					 	<p:column headerText="Dueño" style="text-align:center;" filterBy="#{s.userOwner}" filterMatchMode="exact">
+							<f:facet name="filter">
+								<p:selectOneMenu onchange="PF('tblE').filter()">
+									<f:selectItem itemLabel="Elegir" itemValue="#{null}" noSelectionOption="true" />
+									<f:selectItems value="#{usersBean.usuariosGestores}" var="rl" itemLabel="#{rl.name}" />
+								</p:selectOneMenu>
+							</f:facet>
+							<h:outputText value="#{s.userOwner.name}" />
+						</p:column>					 
+					    
+					</p:dataTable>
+				
+               </h:form>
+			<br/>
+			<h:form id="formUsuarios">
+		
+				
+					<p:dataTable id="tbl" value="#{usersBean.usuarios}" var="u" emptyMessage="Sin registros" rows="10" paginator="true"
+						paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" filteredValue="#{usersBean.filterUsers}" widgetVar="tbl">
+		
+						<f:facet name="header">Usuarios registrados</f:facet>
+				
+						<p:column headerText="Usuario" style="text-align:center;" filterBy="#{u.user}" filterMatchMode="contains">
+							<h:outputText value="#{u.user}" />
+						</p:column>
+				
+						<p:column headerText="Nombre" style="text-align:center;" filterBy="#{u.name}" filterMatchMode="contains">
+							<h:outputText value="#{u.name} #{u.surname}" />
+						</p:column>
+		
+						<p:column headerText="Email" style="text-align:center;" filterBy="#{u.email}" filterMatchMode="exact">
+							<h:outputText value="#{u.email}" />
+						</p:column>
+								
+						<p:column headerText="Rol" style="text-align:center;" filterBy="#{u.userType}" filterMatchMode="exact">
+							<f:facet name="filter">
+								<p:selectOneMenu onchange="PF('tbl').filter()">
+									<f:selectItem itemLabel="Elegir" itemValue="#{null}" noSelectionOption="true" />
+									<f:selectItems value="#{usersBean.roles}" var="rl" itemLabel="#{rl.description}" />
+								</p:selectOneMenu>
+							</f:facet>
+							<h:outputText value="#{u.userType.description}" />
+						</p:column>
+		
+					</p:dataTable>
+		
+				
+		
+			</h:form>  
+	</ui:define>
+</ui:composition>

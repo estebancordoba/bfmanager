@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/views/templates/admin/templateAdmin.xhtml">
+                
+    <ui:define name="head"> 
+    	<h:outputScript name="js/FileSaver.min.js"/>
+		<h:outputScript name="js/canvas-toBlob.js"/>
+		<h:outputScript name="js/Chart.min.js"/>
+		<h:outputScript name="js/jsValidaciones.js"/>
+    </ui:define> 
+    
+    <ui:define name="breadcrumb">
+    	<li>Cuestionarios</li>
+        <li>/</li>    	
+        <li><p:link outcome="results">Resultados</p:link></li>
+        <li>/</li>    	
+        <li>Respuestas</li>
+    </ui:define>
+                
+    <ui:define name="content">            	
+        <p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="6000" escape="false" />
+                                 
+		<p:panel id="pnl" header="Resultados Cuestionarios">
+			<h:form id="formGroup">
+				<p:panelGrid columns="2" style="width: 25%;" layout="grid" styleClass="ui-panelgrid-blank form-group">	  		                                		                               		
+	                <p:selectOneMenu onchange=":formBigFive" id="group" value="#{answersBean.id_group}" placeholder="Grupo"
+	                	             effect="fade" filter="true" filterMatchMode="startsWith">
+	                	<f:selectItem itemLabel="Elegir Grupo" itemValue="#{null}" noSelectionOption="true" />
+	                	<f:selectItems value="#{groupsBean.getSurveyGroupsxIdSurvey(surveysBean.survey.idSurvey)}" var="u" itemLabel="#{groupsBean.getGroupxId(u.idGroup).name}" itemValue="#{u.idGroup}"/>
+					</p:selectOneMenu>
+					
+					<p:commandButton value="Mostrar" icon="ui ui-icon-slideshow" update=":formBigFive"/>					         	
+	            </p:panelGrid>		            
+            </h:form>
+		
+			<h:form id="formBigFive">
+				<p:dataTable id="tbl" value="#{answersBean.getAnswerxIdSurveyIdGroup(surveysBean.survey.idSurvey,answersBean.id_group)}" var="s" emptyMessage="No hay resultados disponibles"									
+						 rows="100" paginator="true" paginatorPosition="bottom"
+						 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						 rowsPerPageTemplate="50,100,150" sortBy="#{s.user}" >
+					
+					<p:column exportable="false" headerText="Usuario" groupRow="true" filterBy="#{usersBean.getUserXId(s.user).name} #{usersBean.getUserXId(s.user).surname} (#{usersBean.getUserXId(s.user).user})" filterMatchMode="contains">					    
+						<div class="ui-g">
+							<div class="ui-g-12 ui-md-6">					
+								<h:outputText value="#{usersBean.getUserXId(s.user).name} #{usersBean.getUserXId(s.user).surname} (#{usersBean.getUserXId(s.user).user})"  />
+							</div>
+							<div class="ui-g-12 ui-md-6">
+					            <p:commandButton update=":formBigFive" actionListener="#{answersBean.eliminarAnswersUserGroup(s.user, surveysBean.survey.idSurvey, answersBean.id_group)}" icon="ui-icon-trash" title="Eliminar">
+					            	<p:confirm header="Confirmación" message="Desea eliminar el registro?" icon="ui-icon-alert" />
+					            </p:commandButton>
+				            </div>
+			        	</div>
+				    </p:column>
+					
+					<p:column visible="false" headerText="Usuario">
+				        <h:outputText value="#{usersBean.getUserXId(s.user).name} #{usersBean.getUserXId(s.user).surname} (#{usersBean.getUserXId(s.user).user})"  />
+				    </p:column>
+				    
+				    <p:column headerText="Pregunta" filterBy="#{questionsBean.getQuestionXId(s.question).title}" filterMatchMode="contains">
+				        <h:outputText value="#{questionsBean.getQuestionXId(s.question).title}"  />
+				    </p:column>
+				    
+				    <p:column headerText="Respuesta" filterBy="#{s.answer}" filterMatchMode="contains">
+				        <h:outputText value="#{s.answer}"  />
+				    </p:column>
+				    
+				</p:dataTable>	
+				
+				<h3>Exportar datos: </h3>
+                                             
+                <h:commandLink>
+                    <p:graphicImage name="images/csv.png" />
+                    <p:dataExporter type="csv" target="tbl" fileName="results_#{surveysBean.survey.title}_#{groupsBean.getGroupxId(answersBean.id_group).name}" pageOnly="true" />
+                </h:commandLink>				                                                 	
+			</h:form>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</p:panel>	
+	</ui:define>
+</ui:composition>

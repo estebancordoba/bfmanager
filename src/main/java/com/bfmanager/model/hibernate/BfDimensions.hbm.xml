@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 16/10/2017 02:04:00 AM by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="bfmanager" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.bfmanager.model.hibernate.BfDimensions" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="bf_dimensions" lazy="false">
+        <id name="idBfDimension" type="java.lang.Integer">
+            <column name="id_bf_dimension"/>
+            <generator class="identity"/>
+        </id>
+        <property generated="never" lazy="false" name="name" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="name" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="abbreviation" optimistic-lock="true" type="string" unique="false">
+            <column length="10" name="abbreviation" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="description" optimistic-lock="true" type="string" unique="false">
+            <column length="100" name="description" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="baseValue" optimistic-lock="true" type="int" unique="false">
+            <column name="baseValue" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="divide" optimistic-lock="true" type="int" unique="false">
+            <column name="divide" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="idSurvey" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="id_survey"/>
+        </property>
+    </class>
+</hibernate-mapping>

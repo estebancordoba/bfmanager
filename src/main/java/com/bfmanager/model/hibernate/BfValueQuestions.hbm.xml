@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 16/10/2017 02:04:00 AM by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="bfmanager" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.bfmanager.model.hibernate.BfValueQuestions" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="bf_value_questions" lazy="false">
+        <id name="idBfValueQuestion" type="java.lang.Integer">
+            <column name="id_bf_value_question"/>
+            <generator class="identity"/>
+        </id>
+        <property generated="never" lazy="false" name="addition" optimistic-lock="true" type="java.lang.Boolean" unique="false">
+            <column name="addition"/>
+        </property>
+        <property generated="never" lazy="false" name="reverse" optimistic-lock="true" type="java.lang.Boolean" unique="false">
+            <column name="reverse"/>
+        </property>
+        <property generated="never" lazy="false" name="idBfDimension" optimistic-lock="true" type="long" unique="false">
+            <column name="id_bf_dimension" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="idQuestion" optimistic-lock="true" type="long" unique="false">
+            <column name="id_question" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

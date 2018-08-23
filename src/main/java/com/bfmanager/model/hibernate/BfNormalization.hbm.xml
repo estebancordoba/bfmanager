@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 16/10/2017 02:04:00 AM by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="bfmanager" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.bfmanager.model.hibernate.BfNormalization" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="bf_normalization" lazy="false">
+        <id name="idBfNormalization" type="java.lang.Integer">
+            <column name="id_bf_normalization"/>
+            <generator class="identity"/>
+        </id>
+        <property generated="never" lazy="false" name="maximum" optimistic-lock="true" type="int" unique="false">
+            <column name="maximum" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="minimum" optimistic-lock="true" type="int" unique="false">
+            <column name="minimum" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="idSurvey" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="id_survey"/>
+        </property>
+    </class>
+</hibernate-mapping>

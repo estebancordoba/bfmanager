@@ -1,0 +1,129 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/views/templates/admin/templateAdmin.xhtml">
+    
+    <ui:define name="breadcrumb">
+    	<li>Cuestionarios</li>
+        <li>/</li>
+    	<li><p:link outcome="bigFive">Big Five</p:link></li>
+    	<li>/</li>
+    	<li><p:link outcome="bfDimensions">Dimensiones</p:link></li>        
+    </ui:define>
+                
+    <ui:define name="content">           	
+        
+        <p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="6000" escape="false" />
+
+		<p:panel id="pnl" header="Administración de Dimensiones">
+			<p:outputLabel id="nom_enc" value="Cuestionario: #{surveysBean.survey.title}"/><br/><br/>
+			<p:commandButton update=":formDimensions" actionListener="#{bigFiveBean.prepararDimension(surveysBean.survey.idSurvey)}" value="Nueva Dimension" icon="ui ui-icon-add" oncomplete="PF('dlgAgregar').show()"/>
+			<br/><br/>
+			
+			<h:form><p:remoteCommand name="prepararA" autoRun="true" update=":formDimensions" actionListener="#{bigFiveBean.firstDimension()}" /></h:form>
+			
+			<h:form id="formDimensions">
+				<p:dataTable id="tbl" value="#{bigFiveBean.getDimensionsxIdSurvey(surveysBean.survey.idSurvey)}" var="q"
+							 emptyMessage="No hay preguntas disponibles"
+							 widgetVar="tbl"
+							 rows="10" paginator="true" paginatorPosition="bottom"
+							 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							 rowsPerPageTemplate="5,10,15" 
+							 rowKey="#{q.idBfDimension}" selection="#{bigFiveBean.selectedBfDimensions}">
+					
+					<p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+							 
+				    <p:column headerText="Nombre" filterBy="#{q.name}" filterMatchMode="contains">
+				        <h:outputText value="#{q.name}" />
+				    </p:column>
+				 
+				    <p:column headerText="Abreviacion" filterBy="#{q.abbreviation}" filterMatchMode="contains">
+				        <h:outputText value="#{q.abbreviation}" />
+				    </p:column>
+				    
+				    <p:column headerText="Descripcion" filterBy="#{q.description}" filterMatchMode="contains">
+				        <h:outputText value="#{q.description}" />
+				    </p:column>
+				    
+				    <p:column style="width:15%;text-align: center">
+				    
+			            <p:commandButton actionListener="#{bigFiveBean.actualizarDimension(q.idBfDimension)}" update=":formDimensions" oncomplete="PF('dlgAgregar').show()"  icon="ui-icon-pencil" title="Editar">					                
+			            </p:commandButton>
+			            
+			            <h:commandLink actionListener="#{bigFiveBean.asignarDimension(q.idBfDimension)}" action="/views/admin/bfValueQuestions.xhtml" immediate="true">
+			            	<p:button icon="ui-icon-confirmation-number" title="Valor Preguntas"/>
+			            </h:commandLink>  
+			            
+			            <p:commandButton update=":formDimensions:tbl" actionListener="#{bigFiveBean.eliminarDimension(q.idBfDimension)}" icon="ui-icon-trash" title="Eliminar">
+			            	<p:confirm header="Confirmación" message="Desea eliminar el registro?" icon="ui-icon-alert" />
+			            </p:commandButton>
+			            			            					                   
+			        </p:column>		
+				</p:dataTable>
+				
+				<br/>
+				<p:commandButton update=":formDimensions:tbl" icon="ui-icon-playlist-add-check" value="Eliminar elementos seleccionados" actionListener="#{bigFiveBean.eliminarVariasDimensiones()}">
+					<p:confirm header="Confirmación" message="Desea eliminar los registros?" icon="ui-icon-alert" />
+				</p:commandButton>
+				
+				<p:dialog widgetVar="dlgAgregar" id="dialogA" modal="true" showEffect="fade" hideEffect="fade" resizable="false">					
+					<p:ajax event="close" update=":formDimensions:dialogA" listener="#{bigFiveBean.cancelarDimension()}" />	
+					<h:form>						
+				        
+			            <p:panelGrid id="panelA" styleClass="ui-panelgrid-blank form-group" columns="1" layout="grid">
+                           	<h:panelGroup styleClass="md-inputfield">
+                            	<p:inputText id="name" value="#{bigFiveBean.bf_dimension.name}"
+                            					required="true" requiredMessage="Ingrese el nombre"/>
+                            	<p:outputLabel value="Nombre" for="name" />
+                            	<p:message for="name" />
+	                        </h:panelGroup>
+	                        
+	                        <h:panelGroup styleClass="md-inputfield">
+                            	<p:inputText id="abbreviation" value="#{bigFiveBean.bf_dimension.abbreviation}"
+                            				required="true" requiredMessage="Ingrese la abreviacion"/>
+                            	<p:outputLabel value="Abreviacion" for="abbreviation" />
+                            	<p:message for="abbreviation" />
+	                        </h:panelGroup>
+	                        
+	                        <h:panelGroup styleClass="md-inputfield">
+                            	<p:inputTextarea id="description" rows="5" value="#{bigFiveBean.bf_dimension.description}"
+                            	required="true" requiredMessage="Ingrese la descripcion"/>
+                            	<p:outputLabel value="Descripcion" for="description" />
+                            	<p:message for="description" />
+	                        </h:panelGroup>
+	                        
+	                        <h:panelGroup styleClass="md-inputfield">
+                            	<p:inputNumber decimalPlaces="0" id="baseValue" value="#{bigFiveBean.bf_dimension.baseValue}"
+                            	required="true" requiredMessage="Ingrese el valor base"/>
+                            	<p:outputLabel value="Valor Base" for="baseValue" />
+                            	<p:message for="baseValue" />
+	                        </h:panelGroup>	
+	                        
+	                        <h:panelGroup styleClass="md-inputfield">
+                            	<p:inputNumber decimalPlaces="0" id="divide" value="#{bigFiveBean.bf_dimension.divide}"
+                            	required="true" requiredMessage="Ingrese el valor de division"/>
+                            	<p:outputLabel value="Dividir" for="divide" />
+                            	<p:message for="divide" />
+	                        </h:panelGroup>	
+	                                        
+			            </p:panelGrid>
+			            <p:separator/>
+			            <p:commandButton value="Agregar" update="panelA,:formDimensions:tbl" actionListener="#{bigFiveBean.guardarDimension()}" icon="ui ui-icon-add-circle-outline" oncomplete="if (!args.validationFailed){PF('dlgAgregar').hide();}else{PF('dlgAgregar').jq.effect('shake', {times:5}, 100);}"/>					                
+			            <p:commandButton value="Cancelar" update="panelA" actionListener="#{bigFiveBean.cancelarDimension()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgAgregar').hide()" immediate="true"/>
+					</h:form>				      
+			    </p:dialog>	
+				
+										
+			</h:form>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>							
+
+			
+		</p:panel>
+               	
+    </ui:define>
+</ui:composition>

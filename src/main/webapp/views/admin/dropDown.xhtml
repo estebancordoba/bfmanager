@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/views/templates/admin/templateAdmin.xhtml">
+    
+    <ui:define name="breadcrumb">
+    	<li>Cuestionarios</li>
+        <li>/</li>
+        <li><p:link outcome="surveys">Administracion</p:link></li>
+        <li>/</li>
+        <li><p:link outcome="questions">Preguntas</p:link></li>
+        <li>/</li>
+        <li><p:link outcome="dropDown">Desplegable</p:link></li>
+    </ui:define>
+                
+    <ui:define name="content">
+                <p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="6000" escape="false" />
+
+				<p:panel id="pnl" header="Desplegable">					
+					<p:outputLabel id="nom_enc" value="Pregunta: #{questionsBean.question.title}"/><br/><br/>					
+					
+					<p:commandButton update=":formOptions" actionListener="#{questionsAllBean.renovarDD(questionsBean.question.idQuestion)}" value="Nueva Opcion" icon="ui ui-icon-add" oncomplete="PF('dlgAgregar').show()"></p:commandButton>						
+					<br/><br/>
+					
+					<h:form><p:remoteCommand name="prepararA" autoRun="true" update=":formOptions" actionListener="#{questionsAllBean.firstDropDown()}" /></h:form>
+					
+					<h:form id="formOptions">
+						<p:dataTable id="tbl" value="#{questionsAllBean.getDropDownQuestion(questionsBean.question.idQuestion)}" var="q"
+									 emptyMessage="No hay opciones disponibles"
+									 rows="10" paginator="true" paginatorPosition="bottom"
+									 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									 rowsPerPageTemplate="5,10,15" 
+									 rowKey="#{q.idDropDown}" selection="#{questionsAllBean.selectedDropDown}">
+									 
+							<p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+							
+						    <p:column headerText="Descripcion" filterBy="#{q.description}" filterMatchMode="contains">
+						        <h:outputText value="#{q.description}" />
+						    </p:column>
+						    
+						    <p:column style="width:15%;text-align: center">
+					            <p:commandButton actionListener="#{questionsAllBean.actualizarDD(q.idDropDown,questionsBean.question.idQuestion)}" update=":formOptions" oncomplete="PF('dlgAgregar').show()"  icon="ui-icon-pencil" title="Editar"/>				                
+					            
+					            <p:commandButton update=":formOptions:tbl" actionListener="#{questionsAllBean.eliminarDD(q.idDropDown)}" icon="ui-icon-trash" title="Eliminar">
+					            	<p:confirm header="Confirmación" message="Desea eliminar el registro?" icon="ui-icon-alert" />
+					            </p:commandButton>
+					        </p:column>		
+						</p:dataTable>
+						
+						<br/>
+						<p:commandButton update=":formOptions:tbl" icon="ui-icon-playlist-add-check" value="Eliminar elementos seleccionados" actionListener="#{questionsAllBean.eliminarVariosDD()}">
+							<p:confirm header="Confirmación" message="Desea eliminar los registros?" icon="ui-icon-alert" />
+						</p:commandButton>
+						
+						
+						<p:dialog widgetVar="dlgAgregar" id="dialogA" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+							<p:ajax event="close" update=":formOptions:dialogA" listener="#{questionsAllBean.renovarDD(questionsBean.question.idQuestion)}" />
+							<h:form>							
+						        
+						            <p:panelGrid columns="1" id="panelAgregar" layout="grid" styleClass="ui-panelgrid-blank form-group">
+						            	<h:panelGroup styleClass="md-inputfield">						               
+							                <p:inputText id="oTitle" value="#{questionsAllBean.dropDown.description}" required="true" requiredMessage="Ingrese el titulo"/>
+		                                   	<label>Titulo</label>
+		                                   	<p:message for="oTitle" />
+	                                   	</h:panelGroup>						                
+						            </p:panelGrid>
+						            <p:separator/>
+						            <p:commandButton value="Agregar" update="panelAgregar,:formOptions:tbl" actionListener="#{questionsAllBean.guardarDD()}" icon="ui ui-icon-add-circle-outline" oncomplete="if (!args.validationFailed){PF('dlgAgregar').hide();}else{PF('dlgAgregar').jq.effect('shake', {times:5}, 100);}"/>					                
+						            <p:commandButton value="Cancelar" update="panelAgregar" actionListener="#{questionsAllBean.cancelar()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgAgregar').hide()"/>
+						        
+					    	</h:form>
+					    </p:dialog>							
+					</h:form>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</p:panel>
+				
+            </ui:define>
+</ui:composition>

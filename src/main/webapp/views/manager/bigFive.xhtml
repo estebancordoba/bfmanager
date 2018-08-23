@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/views/templates/manager/templateManager.xhtml">
+    
+    <ui:define name="breadcrumb">
+    	<li>Cuestionarios</li>
+        <li>/</li>
+    	<li><p:link outcome="bigFive">Big Five</p:link></li>        
+    </ui:define>
+                
+    <ui:define name="content">           	
+         <p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="6000" escape="false" />
+                                
+		<p:panel id="pnl" header="Administración Cuestionarios Big Five">
+			<h:form id="formBigFive">
+				<p:dataTable id="tbl" value="#{surveysBean.getSurveysBFIxIdManager(usersBean.obtenerUsuario().idUser)}" var="s" emptyMessage="No hay cuestionarios disponibles"									
+							 rows="10" paginator="true" paginatorPosition="bottom"
+							 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							 rowsPerPageTemplate="5,10,15">
+				    <p:column headerText="Titulo" filterBy="#{s.title}" filterMatchMode="contains">
+				        <h:outputText value="#{s.title}" />
+				    </p:column>
+				 
+				    <p:column headerText="Descripcion Corta" filterBy="#{s.shortDescription}" filterMatchMode="contains">
+				        <h:outputText value="#{s.shortDescription}"/>						        
+				    </p:column>				 
+				    
+				    <p:column style="width:20%;text-align: center">
+				    	<p:commandButton actionListener="#{bigFiveBean.actualizarNormalization(s.idSurvey)}" update=":formBigFive" oncomplete="PF('dlgNormalization').show()"  icon="ui-icon-compare-arrows" title="Normalizacion"/>					                
+					  
+					  	<h:commandLink actionListener="#{surveysBean.asignarSurvey(s.idSurvey)}" action="/views/manager/bfDimensions.xhtml" immediate="true">
+			            	<p:button icon="ui-icon-assignment-late" title="Dimensiones"/>
+			            </h:commandLink> 
+					  
+					    <h:commandLink actionListener="#{surveysBean.asignarSurvey(s.idSurvey)}" action="/views/manager/preview.xhtml" target="_blank" immediate="true">
+			            	<p:button icon="ui-icon-present-to-all" title="Vista Previa"/>
+			            </h:commandLink>
+			            
+			        </p:column>					 
+				    
+				</p:dataTable>
+				
+				<p:dialog closeOnEscape="true" header="Configuracion Normalizacion" id="dialogN" widgetVar="dlgNormalization" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true">
+					<p:ajax event="close" update=":formBigFive:dialogN" listener="#{bigFiveBean.cancelarNormalization()}" />
+					<h:form>						
+							
+						<p:panelGrid id="panelA" styleClass="ui-panelgrid-blank form-group" columns="1" layout="grid">
+                           	<h:panelGroup styleClass="md-inputfield">
+                            	<p:inputNumber decimalPlaces="0" id="maximo" value="#{bigFiveBean.bf_normalization.maximum}" required="true" requiredMessage="Ingrese un valor"/>
+                            	<p:outputLabel value="Maximo" for="maximo" />
+                            	<p:message for="maximo" />
+	                        </h:panelGroup>
+	                        
+	                        <h:panelGroup styleClass="md-inputfield">
+                            	<p:inputNumber decimalPlaces="0" id="minimo" value="#{bigFiveBean.bf_normalization.minimum}" required="true" requiredMessage="Ingrese un valor"/>
+                            	<p:outputLabel value="Minimo" for="minimo" />
+                            	<p:message for="minimo" />
+	                        </h:panelGroup>	                
+			            </p:panelGrid>					
+							
+	   					<p:separator/>
+		            	<p:commandButton value="Agregar" update="panelA,:formBigFive:tbl" actionListener="#{bigFiveBean.guardarNormalization()}" icon="ui ui-icon-add-circle-outline" oncomplete="if (!args.validationFailed){PF('dlgNormalization').hide();}else{PF('dlgNormalization').jq.effect('shake', {times:5}, 100);}"/>					                
+		            	<p:commandButton value="Cancelar" update="panelA" actionListener="#{bigFiveBean.cancelarNormalization()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgNormalization').hide()" immediate="true"/>
+			    	</h:form>
+			    </p:dialog>	
+				    
+				
+							
+			</h:form>
+			
+		</p:panel>       	
+    </ui:define>
+</ui:composition>

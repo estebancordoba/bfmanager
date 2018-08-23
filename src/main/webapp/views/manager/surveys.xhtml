@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/views/templates/manager/templateManager.xhtml">
+                
+    <ui:define name="breadcrumb">
+    	<li>Cuestionarios</li>
+        <li>/</li>
+        <li><p:link outcome="surveys">Administracion</p:link></li>
+    </ui:define>
+    
+    <ui:define name="content">           	
+                <p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="6000" escape="false" />
+                                
+				<p:panel id="pnl" header="Administración de Encuestas">
+					
+					<h:form><p:remoteCommand name="prepararA" autoRun="true" update=":formSurveys" actionListener="#{surveysBean.firstSurvey()}" /></h:form>
+					
+					<h:form>
+						<pe:remoteCommand name="changeActived" process="@this" update=":formSurveys:tbl" actionListener="#{surveysBean.changeActivatedSurvey}">
+							<pe:methodSignature parameters="java.lang.Integer"/>
+							<pe:methodParam name="id_survey"/>    
+						</pe:remoteCommand>						
+					</h:form>
+					
+					<h:form id="formSurveys">
+						<p:dataTable id="tbl" value="#{surveysBean.getSurveysxIdManager(usersBean.obtenerUsuario().idUser)}" var="s" emptyMessage="No hay encuestas disponibles"									
+									 rows="10" paginator="true" paginatorPosition="bottom"
+									 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									 rowsPerPageTemplate="5,10,15">
+						    <p:column headerText="Titulo" filterBy="#{s.title}" filterMatchMode="contains">
+						        <h:outputText value="#{s.title}" />
+						    </p:column>
+						 
+						    <p:column headerText="Descripcion Corta" filterBy="#{s.shortDescription}" filterMatchMode="contains">
+						        <h:outputText value="#{s.shortDescription}"/>						        
+						    </p:column>
+						 
+						 	<p:column id="sActivated" headerText="Activa">						    	
+						        <p:inputSwitch onchange="changeActived(#{s.idSurvey})" value="#{s.activated}"  />						        
+						    </p:column>
+						    						    
+						    <p:column style="width:25%;text-align: center">
+					           
+					            <h:commandLink actionListener="#{surveysBean.asignarSurvey(s.idSurvey)}" action="/views/manager/assignGroups.xhtml" immediate="true">
+					            	<p:button icon="ui-icon-group-add" title="Asignar Grupos"/>
+					            </h:commandLink>
+					                   
+					            <h:commandLink actionListener="#{surveysBean.asignarSurvey(s.idSurvey)}" action="/views/manager/preview.xhtml" target="_blank" immediate="true">
+					            	<p:button icon="ui-icon-present-to-all" title="Vista Previa"/>
+					            </h:commandLink>					            				                 
+					            
+					        </p:column>					 
+						    
+						</p:dataTable>	
+					</h:form>					
+				</p:panel>	
+            </ui:define>
+</ui:composition>

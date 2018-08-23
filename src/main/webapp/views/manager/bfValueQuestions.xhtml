@@ -1,0 +1,115 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/views/templates/manager/templateManager.xhtml">
+    
+    <ui:define name="breadcrumb">
+    	<li>Cuestionarios</li>
+        <li>/</li>
+    	<li><p:link outcome="bigFive">Big Five</p:link></li>
+    	<li>/</li>
+    	<li><p:link outcome="bfDimensions">Dimensiones</p:link></li>        
+    	<li>/</li>
+    	<li><p:link outcome="bfValueQuestions">Valor de Preguntas</p:link></li>
+    </ui:define>
+                
+    <ui:define name="content">           	
+        
+        <p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="6000" escape="false" />
+
+		<p:panel id="pnl" header="Administración de Valor de Preguntas">
+			<p:outputLabel id="nom_enc" value="#{surveysBean.survey.title} - #{bigFiveBean.bf_dimension.name}"/><br/><br/>
+			<p:commandButton update=":formValueQuestions" actionListener="#{bigFiveBean.prepararValueQuestion(bigFiveBean.bf_dimension.idBfDimension)}" value="Nuevo Valor" icon="ui ui-icon-add" oncomplete="PF('dlgAgregar').show()"/>
+			<br/><br/>
+			
+			<h:form><p:remoteCommand name="prepararA" autoRun="true" update=":formValueQuestions" actionListener="#{bigFiveBean.firstValueQuestion()}" /></h:form>
+			
+			<h:form id="formValueQuestions">
+				<p:dataTable id="tbl" value="#{bigFiveBean.getValueQuestionsxIdDimension(bigFiveBean.bf_dimension.idBfDimension)}" var="q"
+							 emptyMessage="No hay valores disponibles"
+							 widgetVar="tbl"
+							 rows="12" paginator="true" paginatorPosition="bottom"
+							 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							 rowsPerPageTemplate="12,24,36" 
+							 rowKey="#{q.idBfValueQuestion}" selection="#{bigFiveBean.selectedBfValueQuestions}">
+					  
+					<p:column selectionMode="multiple" style="width:16px;text-align:center"/>  
+					  
+				    <p:column headerText="Tipo" style="text-align:center;" filterBy="#{q.addition}" filterMatchMode="exact">
+						<f:facet name="filter">
+							<p:selectOneMenu onchange="PF('tbl').filter()">
+								<f:selectItem itemLabel="Elegir" itemValue="#{null}" noSelectionOption="true" />
+								<f:selectItem itemLabel="Positivo" itemValue="true" />
+								<f:selectItem itemLabel="Negativo" itemValue="false"/>								
+							</p:selectOneMenu>
+						</f:facet>
+						<h:outputText value="#{q.addition ? 'Positivo':'Negativo'}" />
+					</p:column>
+				 
+				    <p:column headerText="Reverso">
+				    	<h:outputText value="#{q.reverse? 'SI':'NO'}" />						    							    	
+				    </p:column>
+				    
+				    <p:column headerText="Pregunta" filterBy="#{bigFiveBean.getQuestionTitle(q.idQuestion)}" filterMatchMode="contains">
+				        <h:outputText value="#{bigFiveBean.getQuestionTitle(q.idQuestion)}" />
+				    </p:column>
+				    
+				    <p:column style="width:15%;text-align: center">
+				    
+			            <p:commandButton actionListener="#{bigFiveBean.actualizarValueQuestion(q.idBfValueQuestion)}" update=":formValueQuestions" oncomplete="PF('dlgAgregar').show()"  icon="ui-icon-pencil" title="Editar">					                
+			            </p:commandButton>
+			            <p:commandButton update=":formValueQuestions:tbl" actionListener="#{bigFiveBean.eliminarValueQuestion(q.idBfValueQuestion)}" icon="ui-icon-trash" title="Eliminar">
+			            	<p:confirm header="Confirmación" message="Desea eliminar el registro?" icon="ui-icon-alert" />
+			            </p:commandButton>
+			            			            					                   
+			        </p:column>		
+				</p:dataTable>
+				
+				<br/>
+				<p:commandButton update=":formValueQuestions:tbl" icon="ui-icon-playlist-add-check" value="Eliminar elementos seleccionados" actionListener="#{bigFiveBean.eliminarVariasValueQuestion()}">
+					<p:confirm header="Confirmación" message="Desea eliminar los registros?" icon="ui-icon-alert" />
+				</p:commandButton>
+				
+				<p:dialog widgetVar="dlgAgregar" id="dialogA" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="50%">					
+					<p:ajax event="close" update=":formValueQuestions:dialogA" listener="#{bigFiveBean.cancelarValueQuestion()}" />		
+					<h:form>					
+				        
+			            <p:panelGrid id="panelA" styleClass="ui-panelgrid-blank form-group" columns="1" layout="grid">
+			            	<h:panelGroup>
+			            		<h:outputText value="Tipo: " />
+                            	<p:selectBooleanButton value="#{bigFiveBean.bf_value_question.addition}" onLabel="Positivo" offLabel="Negativo"/>			            
+			            	</h:panelGroup>
+			            	
+			            	<h:panelGroup>
+                           		<h:outputText value="Reverso:" />
+		                		<p:selectBooleanCheckbox value="#{bigFiveBean.bf_value_question.reverse}" />
+	                        </h:panelGroup>	                        
+	                        
+	                        <h:panelGroup>												                						                
+				                <p:selectOneMenu id="id_question_vp" value="#{bigFiveBean.bf_value_question.idQuestion}" required="true" requiredMessage="Seleccionar una pregunta">
+				                	<f:selectItem itemLabel="Pregunta" itemValue="#{null}" itemDisabled="true" noSelectionOption="true" />											
+									<f:selectItems value="#{bigFiveBean.getQuestionsxIdSurveyAvailable(surveysBean.survey.idSurvey,bigFiveBean.bf_dimension.idBfDimension)}" var="qt" itemLabel="#{qt.title}" itemValue="#{qt.idQuestion}" />
+								</p:selectOneMenu>         	
+                            </h:panelGroup>
+	                                        
+			            </p:panelGrid>
+			            <p:separator/>
+			            <p:commandButton value="Agregar" update="panelA,:formValueQuestions:tbl" actionListener="#{bigFiveBean.guardarValueQuestion()}" icon="ui ui-icon-add-circle-outline" oncomplete="if (!args.validationFailed){PF('dlgAgregar').hide();}else{PF('dlgAgregar').jq.effect('shake', {times:5}, 100);}"/>					                
+			            <p:commandButton value="Cancelar" update="panelA" actionListener="#{bigFiveBean.cancelarValueQuestion()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgAgregar').hide()" immediate="true"/>
+					</h:form>	      
+			    </p:dialog>	
+				
+										
+			</h:form>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>							
+
+			
+		</p:panel>
+               	
+    </ui:define>
+</ui:composition>

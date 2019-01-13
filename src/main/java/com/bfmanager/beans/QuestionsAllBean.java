@@ -68,7 +68,7 @@ public class QuestionsAllBean implements Serializable {
 			try {
 				questionsAllService.saveMultipleChoice(multipleChoice);;
 				this.cancelar();
-				MsgUtil.msgInfo("Exito!", "Opcion guardada correctamente");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("option_saved_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -76,7 +76,7 @@ public class QuestionsAllBean implements Serializable {
 			try {
 				questionsAllService.updateMultipleChoice(multipleChoice);
 				this.cancelar();
-				MsgUtil.msgInfo("Exito!", "Opcion actualizada");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("option_updated_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -93,7 +93,7 @@ public class QuestionsAllBean implements Serializable {
 		try {
 			MultipleChoice s_eliminar = questionsAllService.searchMCxId(id_s);
 			questionsAllService.removeMultipleChoice(s_eliminar);
-			MsgUtil.msgInfo("Exito!", "Opcion eliminada correctamente");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("option_removed_correctly"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -105,9 +105,9 @@ public class QuestionsAllBean implements Serializable {
 			for (MultipleChoice eliminar : selectedMultipleChoice) {	
 				questionsAllService.removeMultipleChoice(eliminar);
 			}
-			MsgUtil.msgInfo("Exito!", "Registros eliminados correctamente.");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("records_removed_correctly"));
 		} catch (Exception e) {
-			MsgUtil.msgError("Error!", "Ocurrio un error al intentar eliminar los registros.");
+			MsgUtil.msgError(LanguageBean.obtenerMensaje("error"), LanguageBean.obtenerMensaje("error_remove_records"));
 			e.printStackTrace();
 		}		
 		selectedMultipleChoice=null;
@@ -154,7 +154,7 @@ public class QuestionsAllBean implements Serializable {
 			try {
 				questionsAllService.saveDropDown(dropDown);;
 				this.cancelar();
-				MsgUtil.msgInfo("Exito!", "Opcion guardada correctamente");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("option_saved_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -162,7 +162,7 @@ public class QuestionsAllBean implements Serializable {
 			try {
 				questionsAllService.updateDropDown(dropDown);
 				this.cancelar();
-				MsgUtil.msgInfo("Exito!", "Opcion actualizada");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("option_updated_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -183,7 +183,7 @@ public class QuestionsAllBean implements Serializable {
 		try {
 			DropDown s_eliminar = questionsAllService.searchDDxId(id_s);
 			questionsAllService.removeDropDown(s_eliminar);
-			MsgUtil.msgInfo("Exito!", "Opcion eliminada correctamente");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("option_removed_correctly"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -195,9 +195,9 @@ public class QuestionsAllBean implements Serializable {
 			for (DropDown eliminar : selectedDropDown) {	
 				questionsAllService.removeDropDown(eliminar);
 			}
-			MsgUtil.msgInfo("Exito!", "Registros eliminados correctamente.");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("records_removed_correctly"));
 		} catch (Exception e) {
-			MsgUtil.msgError("Error!", "Ocurrio un error al intentar eliminar los registros.");
+			MsgUtil.msgError(LanguageBean.obtenerMensaje("error"), LanguageBean.obtenerMensaje("error_remove_records"));
 			e.printStackTrace();
 		}		
 		selectedDropDown=null;

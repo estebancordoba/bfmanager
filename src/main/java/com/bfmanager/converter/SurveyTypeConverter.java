@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
+import com.bfmanager.beans.LanguageBean;
 import com.bfmanager.model.hibernate.SurveysType;
 import com.bfmanager.service.SurveysService;
 
@@ -30,7 +31,7 @@ public class SurveyTypeConverter implements Converter{
 			}
 
 		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error!", "Tipo cuestionario no valido");
+			FacesMessage msg = new FacesMessage(LanguageBean.obtenerMensaje("error"), LanguageBean.obtenerMensaje("invalid_type_survey"));
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			throw new ConverterException(msg);			
 		}

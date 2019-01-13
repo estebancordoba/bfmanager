@@ -10,9 +10,9 @@
         <div class="sidebar-logo">
             <a href="index.xhtml">
                 <p:graphicImage name="images/logo-slim.png" library="serenity-layout" />
-                <span class="app-name">BF-Manager</span>
+                <span class="app-name">#{language.bf_manager}</span>
             </a>
-            <a href="#" class="sidebar-anchor" title="Toggle Menu"></a>
+            <a href="#" class="sidebar-anchor" title="#{language.menu}"></a>
         </div>
 
         <div class="nano">
@@ -20,8 +20,8 @@
                 <div class="layout-menu-container">
                     <h:form id="menuform">
                         <pm:menu>
-                            <p:menuitem id="sr_home" value="Inicio" icon="&#xE871;" outcome="/index.html"/>
-                            <p:menuitem id="sr_collaborative" value="CW - Teams" title="Software para la conformación de grupos de trabajo colaborativo basado en algoritmos genéticos" icon="&#xe886;" url="http://190.254.4.125:8080/cwteams/" target="_blank"/>
+                            <p:menuitem id="sr_home" value="#{language.home}" icon="&#xE871;" outcome="/index.html"/>
+                            <p:menuitem id="sr_collaborative" value="CW - Teams" title="#{language.description_cw_teams}" icon="&#xe886;" url="http://190.254.4.125:8080/cwteams/" target="_blank"/>
                                                         
                         </pm:menu>
                     </h:form>

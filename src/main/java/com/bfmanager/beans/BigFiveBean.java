@@ -156,7 +156,7 @@ public class BigFiveBean implements Serializable {
 				
 				bigFiveService.saveBfDimension(bf_dimension);
 				this.cancelarDimension();
-				MsgUtil.msgInfo("Exito!", "Dimension guardada correctamente");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("dimension_saved_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -164,7 +164,7 @@ public class BigFiveBean implements Serializable {
 			try {
 				bigFiveService.updateBfDimension(bf_dimension);
 				this.cancelarDimension();
-				MsgUtil.msgInfo("Exito!", "Dimension actualizada");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("dimension_updated_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -188,7 +188,7 @@ public class BigFiveBean implements Serializable {
 		try {
 			BfDimensions eliminar = bigFiveService.searchBfDimensionxId(id);		
 			bigFiveService.removeBfDimension(eliminar);						
-			MsgUtil.msgInfo("Exito!", "Dimension eliminada correctamente");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("dimension_removed_correctly"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -200,9 +200,9 @@ public class BigFiveBean implements Serializable {
 			for (BfDimensions eliminar : selectedBfDimensions) {	
 				bigFiveService.removeBfDimension(eliminar);
 			}
-			MsgUtil.msgInfo("Exito!", "Registros eliminados correctamente.");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("records_removed_correctly"));
 		} catch (Exception e) {
-			MsgUtil.msgError("Error!", "Ocurrio un error al intentar eliminar los registros.");
+			MsgUtil.msgError(LanguageBean.obtenerMensaje("error"), LanguageBean.obtenerMensaje("error_remove_records"));
 			e.printStackTrace();
 		}		
 		selectedBfDimensions=null;
@@ -234,7 +234,7 @@ public class BigFiveBean implements Serializable {
 			try {
 				bigFiveService.saveBfNormalization(bf_normalization);
 				this.cancelarNormalization();
-				MsgUtil.msgInfo("Exito!", "Normalization guardada correctamente");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("normalization_saved_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -242,7 +242,7 @@ public class BigFiveBean implements Serializable {
 			try {
 				bigFiveService.updateBfNormalization(bf_normalization);
 				this.cancelarNormalization();
-				MsgUtil.msgInfo("Exito!", "Normalization actualizada");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("normalization_updated_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -263,7 +263,7 @@ public class BigFiveBean implements Serializable {
 		try {
 			BfNormalization eliminar = bigFiveService.searchBfNormalizationxId(id);		
 			bigFiveService.removeBfNormalization(eliminar);						
-			MsgUtil.msgInfo("Exito!", "Normalization eliminada correctamente");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("normalization_removed_correctly"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -285,7 +285,7 @@ public class BigFiveBean implements Serializable {
 			try {
 				bigFiveService.saveBfValueQuestion(bf_value_question);
 				this.cancelarValueQuestion();
-				MsgUtil.msgInfo("Exito!", "ValueQuestion guardada correctamente");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("value_question_saved_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -293,7 +293,7 @@ public class BigFiveBean implements Serializable {
 			try {
 				bigFiveService.updateBfValueQuestion(bf_value_question);
 				this.cancelarValueQuestion();
-				MsgUtil.msgInfo("Exito!", "ValueQuestion actualizada");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("value_question_updated_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -310,7 +310,7 @@ public class BigFiveBean implements Serializable {
 		try {
 			BfValueQuestions eliminar = bigFiveService.searchBfValueQuestionxId(id);		
 			bigFiveService.removeBfValueQuestion(eliminar);						
-			MsgUtil.msgInfo("Exito!", "ValueQuestion eliminada correctamente");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("value_question_removed_correctly"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -322,9 +322,9 @@ public class BigFiveBean implements Serializable {
 			for (BfValueQuestions eliminar : selectedBfValueQuestions) {	
 				bigFiveService.removeBfValueQuestion(eliminar);
 			}
-			MsgUtil.msgInfo("Exito!", "Registros eliminados correctamente.");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("records_removed_correctly"));
 		} catch (Exception e) {
-			MsgUtil.msgError("Error!", "Ocurrio un error al intentar eliminar los registros.");
+			MsgUtil.msgError(LanguageBean.obtenerMensaje("error"), LanguageBean.obtenerMensaje("error_remove_records"));
 			e.printStackTrace();
 		}		
 		selectedBfValueQuestions=null;
@@ -390,7 +390,7 @@ public class BigFiveBean implements Serializable {
 			try {
 				bigFiveService.saveBfResult(bf_result);
 				this.cancelarResult();
-				MsgUtil.msgInfo("Exito!", "Result guardada correctamente");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("result_saved_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -398,7 +398,7 @@ public class BigFiveBean implements Serializable {
 			try {
 				bigFiveService.updateBfResult(bf_result);
 				this.cancelarResult();
-				MsgUtil.msgInfo("Exito!", "Result actualizada");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("result_updated_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -428,7 +428,7 @@ public class BigFiveBean implements Serializable {
 			for (BfResults bfResult : lstResults) {
 				eliminarResult(bfResult.getIdBfResult());
 			}
-			MsgUtil.msgInfo("Exito!", "Result eliminada correctamente");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("result_removed_correctly"));
 		}
 		
 	}
@@ -525,10 +525,10 @@ public class BigFiveBean implements Serializable {
 	        
 	        fileDownload = new DefaultStreamedContent(stream, "application/csv", excelFileName);
 	        
-	        MsgUtil.msgInfo("Exito!", "Archivo descargado correctamente.");
+	        MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("file_downloaded_correctly"));
 	        
 		}catch (Exception e) {
-			MsgUtil.msgError("Error!", "Ocurrio un error al intentar descargar el archivo.");
+			MsgUtil.msgError(LanguageBean.obtenerMensaje("error"), LanguageBean.obtenerMensaje("error_downloading_file"));
 		}
 	}
 }

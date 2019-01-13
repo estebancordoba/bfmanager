@@ -13,63 +13,63 @@
     </ui:define> 
     
     <ui:define name="breadcrumb">
-    	<li>Cuestionarios</li>
+    	<li>#{language.surveys}</li>
         <li>/</li>    	
-        <li><p:link outcome="results">Resultados</p:link></li>
+        <li><p:link outcome="results">#{language.results}</p:link></li>
         <li>/</li>    	
-        <li>Respuestas</li>
+        <li>#{language.answers}</li>
     </ui:define>
                 
     <ui:define name="content">            	
         <p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="6000" escape="false" />
                                  
-		<p:panel id="pnl" header="Resultados Cuestionarios">
+		<p:panel id="pnl" header="#{language.results_surveys}">
 			<h:form id="formGroup">
 				<p:panelGrid columns="2" style="width: 25%;" layout="grid" styleClass="ui-panelgrid-blank form-group">	  		                                		                               		
-	                <p:selectOneMenu onchange=":formBigFive" id="group" value="#{answersBean.id_group}" placeholder="Grupo"
+	                <p:selectOneMenu onchange=":formBigFive" id="group" value="#{answersBean.id_group}" placeholder="#{language.group}"
 	                	             effect="fade" filter="true" filterMatchMode="startsWith">
-	                	<f:selectItem itemLabel="Elegir Grupo" itemValue="#{null}" noSelectionOption="true" />
+	                	<f:selectItem itemLabel="#{language.choose_group}" itemValue="#{null}" noSelectionOption="true" />
 	                	<f:selectItems value="#{groupsBean.getSurveyGroupsxIdSurvey(surveysBean.survey.idSurvey)}" var="u" itemLabel="#{groupsBean.getGroupxId(u.idGroup).name}" itemValue="#{u.idGroup}"/>
 					</p:selectOneMenu>
 					
-					<p:commandButton value="Mostrar" icon="ui ui-icon-slideshow" update=":formBigFive"/>					         	
+					<p:commandButton value="#{language.show}" icon="ui ui-icon-slideshow" update=":formBigFive"/>					         	
 	            </p:panelGrid>		            
             </h:form>
 		
 			<h:form id="formBigFive">
-				<p:dataTable id="tbl" value="#{answersBean.getAnswerxIdSurveyIdGroup(surveysBean.survey.idSurvey,answersBean.id_group)}" var="s" emptyMessage="No hay resultados disponibles"									
+				<p:dataTable id="tbl" value="#{answersBean.getAnswerxIdSurveyIdGroup(surveysBean.survey.idSurvey,answersBean.id_group)}" var="s" emptyMessage="#{language.no_results_available}"									
 						 rows="100" paginator="true" paginatorPosition="bottom"
 						 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						 rowsPerPageTemplate="50,100,150" sortBy="#{s.user}" >
 					
-					<p:column exportable="false" headerText="Usuario" groupRow="true" filterBy="#{usersBean.getUserXId(s.user).name} #{usersBean.getUserXId(s.user).surname} (#{usersBean.getUserXId(s.user).user})" filterMatchMode="contains">					    
+					<p:column exportable="false" headerText="#{language.user}" groupRow="true" filterBy="#{usersBean.getUserXId(s.user).name} #{usersBean.getUserXId(s.user).surname} (#{usersBean.getUserXId(s.user).user})" filterMatchMode="contains">					    
 						<div class="ui-g">
 							<div class="ui-g-12 ui-md-6">					
 								<h:outputText value="#{usersBean.getUserXId(s.user).name} #{usersBean.getUserXId(s.user).surname} (#{usersBean.getUserXId(s.user).user})"  />
 							</div>
 							<div class="ui-g-12 ui-md-6">
-					            <p:commandButton update=":formBigFive" actionListener="#{answersBean.eliminarAnswersUserGroup(s.user, surveysBean.survey.idSurvey, answersBean.id_group)}" icon="ui-icon-trash" title="Eliminar">
-					            	<p:confirm header="Confirmación" message="Desea eliminar el registro?" icon="ui-icon-alert" />
+					            <p:commandButton update=":formBigFive" actionListener="#{answersBean.eliminarAnswersUserGroup(s.user, surveysBean.survey.idSurvey, answersBean.id_group)}" icon="ui-icon-trash" title="#{language.remove}">
+					            	<p:confirm header="#{language.confirmation}" message="#{language.delete_record}" icon="ui-icon-alert" />
 					            </p:commandButton>
 				            </div>
 			        	</div>
 				    </p:column>
 					
-					<p:column visible="false" headerText="Usuario">
+					<p:column visible="false" headerText="#{language.user}">
 				        <h:outputText value="#{usersBean.getUserXId(s.user).name} #{usersBean.getUserXId(s.user).surname} (#{usersBean.getUserXId(s.user).user})"  />
 				    </p:column>
 				    
-				    <p:column headerText="Pregunta" filterBy="#{questionsBean.getQuestionXId(s.question).title}" filterMatchMode="contains">
+				    <p:column headerText="#{language.question}" filterBy="#{questionsBean.getQuestionXId(s.question).title}" filterMatchMode="contains">
 				        <h:outputText value="#{questionsBean.getQuestionXId(s.question).title}"  />
 				    </p:column>
 				    
-				    <p:column headerText="Respuesta" filterBy="#{s.answer}" filterMatchMode="contains">
+				    <p:column headerText="#{language.answer}" filterBy="#{s.answer}" filterMatchMode="contains">
 				        <h:outputText value="#{s.answer}"  />
 				    </p:column>
 				    
 				</p:dataTable>	
 				
-				<h3>Exportar datos: </h3>
+				<h3>#{language.export_data}: </h3>
                                              
                 <h:commandLink>
                     <p:graphicImage name="images/csv.png" />
@@ -78,8 +78,8 @@
 			</h:form>
 			
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-				<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				<p:commandButton value="#{language.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{language.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
 		</p:panel>	
 	</ui:define>

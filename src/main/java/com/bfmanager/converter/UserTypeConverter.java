@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
+import com.bfmanager.beans.LanguageBean;
 import com.bfmanager.model.hibernate.UsersType;
 import com.bfmanager.service.UsersService;
 
@@ -30,7 +31,7 @@ public class UserTypeConverter implements Converter {
 			}
 
 		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error!", "Rol no valido");
+			FacesMessage msg = new FacesMessage(LanguageBean.obtenerMensaje("error"), LanguageBean.obtenerMensaje("invalid_role"));
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			throw new ConverterException(msg);
 		}

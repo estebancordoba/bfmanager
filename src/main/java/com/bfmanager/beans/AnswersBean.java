@@ -95,7 +95,7 @@ public class AnswersBean implements Serializable {
 	public void guardar() {					
 		try {
 			answersService.saveAnswer(answer);			
-			MsgUtil.msgInfo("Exito!", "Respuesta(s) guardada()s correctamente");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("answers_saved_correctly"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -119,7 +119,7 @@ public class AnswersBean implements Serializable {
 			for (Answers answer : lstAnswers) {
 				eliminar(answer.getIdAnswer());
 			}
-			MsgUtil.msgInfo("Exito!", "Respuesta(s) eliminada(s) correctamente.");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("answers_removed_correctly"));
 		}		
 	}
 }

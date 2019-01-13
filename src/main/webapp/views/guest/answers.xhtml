@@ -13,7 +13,7 @@
     </ui:define>
     
     <ui:define name="breadcrumb">
-    	<li>Cuestionario</li>        
+    	<li>#{language.survey}</li>        
     </ui:define> 
 	                
     <ui:define name="content">
@@ -52,22 +52,22 @@
 				
 				<p:dialog rendered="#{surveysBean.survey.surveyType.idSurveyType==2?true:false}" position="center,center-20%" header="#{cw_language.success}! #{cw_language.answer_saved}" widgetVar="dlgRes" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="50%">
 					<p:ajax event="close" resetValues="true" listener="#{showSurveyBean.redireccionar(1)}" />																
-					<p:panel header="Dimensiónes" id="pRadar1">	
+					<p:panel header="#{language.dimensions}" id="pRadar1">	
 		            	 <div style="text-align:center;">
 							<p:commandButton id="expDim" type="button" style="margin: 0 auto; display: inline-block;" icon="ui-icon-help"/>
 						    <p:overlayPanel for="expDim" hideEffect="fade" dynamic="true" style="width: 25%;">
 						    	<p:dataTable value="#{bigFiveBean.getDimensionsxIdSurvey(surveysBean.survey.idSurvey)}" var="d"
-									 emptyMessage="No hay dimensiones disponibles">
-							        <p:column headerText="Dimension">
+									 emptyMessage="#{language.no_dimensions_available}">
+							        <p:column headerText="#{language.dimension}">
 							            <h:outputText value="#{d.name}" />
 							        </p:column>
-							        <p:column headerText="Adjetivo">
+							        <p:column headerText="#{language.adjective}">
 							            <h:outputText value="#{d.description}" />
 							        </p:column>							        
 							    </p:dataTable>									    										        
 						    </p:overlayPanel>
 						    
-						    <p:commandButton id="expIDim" type="button" style="margin: 0 auto; display: inline-block;" icon="ui-icon-image" value="Guardar" onclick="exportCanvas()"/>
+						    <p:commandButton id="expIDim" type="button" style="margin: 0 auto; display: inline-block;" icon="ui-icon-image" value="#{language.save}" onclick="exportCanvas()"/>
 						    
 						    <p:separator/>
 						    <canvas id="chart"/>

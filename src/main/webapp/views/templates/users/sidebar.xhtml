@@ -10,9 +10,9 @@
         <div class="sidebar-logo">
         	<p:link outcome="users">
                 <p:graphicImage name="images/logo-slim.png" library="serenity-layout" />
-                <span class="app-name">BF-Manager</span>            
+                <span class="app-name">#{language.bf_manager}</span>            
             </p:link>
-            <a href="#" class="sidebar-anchor" title="Toggle Menu"></a>
+            <a href="#" class="sidebar-anchor" title="#{language.menu}"></a>
         </div>
 
         <div class="nano">
@@ -20,7 +20,7 @@
                 <div class="layout-menu-container">
                     <h:form id="menuform">
                         <pm:menu>
-                            <p:menuitem id="sr_dashboard" value="Dashboard" icon="&#xE871;" outcome="users"/>                            
+                            <p:menuitem id="sr_dashboard" value="#{language.dashboard}" icon="&#xE871;" outcome="users"/>                            
                         </pm:menu>
                     </h:form>
                 </div>

@@ -6,29 +6,29 @@
                 template="/views/templates/manager/templateManager.xhtml">
     
     <ui:define name="breadcrumb">
-    	<li>Cuestionarios</li>
+    	<li>#{language.surveys}</li>
         <li>/</li>
-    	<li><p:link outcome="bigFive">Big Five</p:link></li>
+    	<li><p:link outcome="bigFive">#{language.big_five}</p:link></li>
     	<li>/</li>
-    	<li><p:link outcome="bfDimensions">Dimensiones</p:link></li>        
+    	<li><p:link outcome="bfDimensions">#{language.dimensions}</p:link></li>        
     	<li>/</li>
-    	<li><p:link outcome="bfValueQuestions">Valor de Preguntas</p:link></li>
+    	<li><p:link outcome="bfValueQuestions">#{language.questions_value}</p:link></li>
     </ui:define>
                 
     <ui:define name="content">           	
         
         <p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="6000" escape="false" />
 
-		<p:panel id="pnl" header="Administración de Valor de Preguntas">
+		<p:panel id="pnl" header="#{language.administration_questions_value}">
 			<p:outputLabel id="nom_enc" value="#{surveysBean.survey.title} - #{bigFiveBean.bf_dimension.name}"/><br/><br/>
-			<p:commandButton update=":formValueQuestions" actionListener="#{bigFiveBean.prepararValueQuestion(bigFiveBean.bf_dimension.idBfDimension)}" value="Nuevo Valor" icon="ui ui-icon-add" oncomplete="PF('dlgAgregar').show()"/>
+			<p:commandButton update=":formValueQuestions" actionListener="#{bigFiveBean.prepararValueQuestion(bigFiveBean.bf_dimension.idBfDimension)}" value="#{language.new_value}" icon="ui ui-icon-add" oncomplete="PF('dlgAgregar').show()"/>
 			<br/><br/>
 			
 			<h:form><p:remoteCommand name="prepararA" autoRun="true" update=":formValueQuestions" actionListener="#{bigFiveBean.firstValueQuestion()}" /></h:form>
 			
 			<h:form id="formValueQuestions">
 				<p:dataTable id="tbl" value="#{bigFiveBean.getValueQuestionsxIdDimension(bigFiveBean.bf_dimension.idBfDimension)}" var="q"
-							 emptyMessage="No hay valores disponibles"
+							 emptyMessage="#{language.no_values_available}"
 							 widgetVar="tbl"
 							 rows="12" paginator="true" paginatorPosition="bottom"
 							 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -37,39 +37,39 @@
 					  
 					<p:column selectionMode="multiple" style="width:16px;text-align:center"/>  
 					  
-				    <p:column headerText="Tipo" style="text-align:center;" filterBy="#{q.addition}" filterMatchMode="exact">
+				    <p:column headerText="#{language.type}" style="text-align:center;" filterBy="#{q.addition}" filterMatchMode="exact">
 						<f:facet name="filter">
 							<p:selectOneMenu onchange="PF('tbl').filter()">
-								<f:selectItem itemLabel="Elegir" itemValue="#{null}" noSelectionOption="true" />
-								<f:selectItem itemLabel="Positivo" itemValue="true" />
-								<f:selectItem itemLabel="Negativo" itemValue="false"/>								
+								<f:selectItem itemLabel="#{language.choose}" itemValue="#{null}" noSelectionOption="true" />
+								<f:selectItem itemLabel="#{language.positive}" itemValue="true" />
+								<f:selectItem itemLabel="#{language.negative}" itemValue="false"/>								
 							</p:selectOneMenu>
 						</f:facet>
-						<h:outputText value="#{q.addition ? 'Positivo':'Negativo'}" />
+						<h:outputText value="#{q.addition ? '#{language.positive}':'#{language.negative}'}" />
 					</p:column>
 				 
-				    <p:column headerText="Reverso">
-				    	<h:outputText value="#{q.reverse? 'SI':'NO'}" />						    							    	
+				    <p:column headerText="#{language.reverse}">
+				    	<h:outputText value="#{q.reverse? '#{language.yes}':'#{language.no}'}" />						    							    	
 				    </p:column>
 				    
-				    <p:column headerText="Pregunta" filterBy="#{bigFiveBean.getQuestionTitle(q.idQuestion)}" filterMatchMode="contains">
+				    <p:column headerText="#{language.question}" filterBy="#{bigFiveBean.getQuestionTitle(q.idQuestion)}" filterMatchMode="contains">
 				        <h:outputText value="#{bigFiveBean.getQuestionTitle(q.idQuestion)}" />
 				    </p:column>
 				    
 				    <p:column style="width:15%;text-align: center">
 				    
-			            <p:commandButton actionListener="#{bigFiveBean.actualizarValueQuestion(q.idBfValueQuestion)}" update=":formValueQuestions" oncomplete="PF('dlgAgregar').show()"  icon="ui-icon-pencil" title="Editar">					                
+			            <p:commandButton actionListener="#{bigFiveBean.actualizarValueQuestion(q.idBfValueQuestion)}" update=":formValueQuestions" oncomplete="PF('dlgAgregar').show()"  icon="ui-icon-pencil" title="#{language.edit}">					                
 			            </p:commandButton>
-			            <p:commandButton update=":formValueQuestions:tbl" actionListener="#{bigFiveBean.eliminarValueQuestion(q.idBfValueQuestion)}" icon="ui-icon-trash" title="Eliminar">
-			            	<p:confirm header="Confirmación" message="Desea eliminar el registro?" icon="ui-icon-alert" />
+			            <p:commandButton update=":formValueQuestions:tbl" actionListener="#{bigFiveBean.eliminarValueQuestion(q.idBfValueQuestion)}" icon="ui-icon-trash" title="#{language.remove}">
+			            	<p:confirm header="#{language.confirmation}" message="#{language.delete_record}" icon="ui-icon-alert" />
 			            </p:commandButton>
 			            			            					                   
 			        </p:column>		
 				</p:dataTable>
 				
 				<br/>
-				<p:commandButton update=":formValueQuestions:tbl" icon="ui-icon-playlist-add-check" value="Eliminar elementos seleccionados" actionListener="#{bigFiveBean.eliminarVariasValueQuestion()}">
-					<p:confirm header="Confirmación" message="Desea eliminar los registros?" icon="ui-icon-alert" />
+				<p:commandButton update=":formValueQuestions:tbl" icon="ui-icon-playlist-add-check" value="#{language.delete_selected_elements}" actionListener="#{bigFiveBean.eliminarVariasValueQuestion()}">
+					<p:confirm header="#{language.confirmation}" message="#{language.delete_records}" icon="ui-icon-alert" />
 				</p:commandButton>
 				
 				<p:dialog widgetVar="dlgAgregar" id="dialogA" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="50%">					
@@ -78,34 +78,34 @@
 				        
 			            <p:panelGrid id="panelA" styleClass="ui-panelgrid-blank form-group" columns="1" layout="grid">
 			            	<h:panelGroup>
-			            		<h:outputText value="Tipo: " />
-                            	<p:selectBooleanButton value="#{bigFiveBean.bf_value_question.addition}" onLabel="Positivo" offLabel="Negativo"/>			            
+			            		<h:outputText value="#{language.type}: " />
+                            	<p:selectBooleanButton value="#{bigFiveBean.bf_value_question.addition}" onLabel="#{language.positive}" offLabel="#{language.negative}"/>			            
 			            	</h:panelGroup>
 			            	
 			            	<h:panelGroup>
-                           		<h:outputText value="Reverso:" />
+                           		<h:outputText value="#{language.reverse}:" />
 		                		<p:selectBooleanCheckbox value="#{bigFiveBean.bf_value_question.reverse}" />
 	                        </h:panelGroup>	                        
 	                        
 	                        <h:panelGroup>												                						                
-				                <p:selectOneMenu id="id_question_vp" value="#{bigFiveBean.bf_value_question.idQuestion}" required="true" requiredMessage="Seleccionar una pregunta">
-				                	<f:selectItem itemLabel="Pregunta" itemValue="#{null}" itemDisabled="true" noSelectionOption="true" />											
+				                <p:selectOneMenu id="id_question_vp" value="#{bigFiveBean.bf_value_question.idQuestion}" required="true" requiredMessage="#{language.select_question}">
+				                	<f:selectItem itemLabel="#{language.question}" itemValue="#{null}" itemDisabled="true" noSelectionOption="true" />											
 									<f:selectItems value="#{bigFiveBean.getQuestionsxIdSurveyAvailable(surveysBean.survey.idSurvey,bigFiveBean.bf_dimension.idBfDimension)}" var="qt" itemLabel="#{qt.title}" itemValue="#{qt.idQuestion}" />
 								</p:selectOneMenu>         	
                             </h:panelGroup>
 	                                        
 			            </p:panelGrid>
 			            <p:separator/>
-			            <p:commandButton value="Agregar" update="panelA,:formValueQuestions:tbl" actionListener="#{bigFiveBean.guardarValueQuestion()}" icon="ui ui-icon-add-circle-outline" oncomplete="if (!args.validationFailed){PF('dlgAgregar').hide();}else{PF('dlgAgregar').jq.effect('shake', {times:5}, 100);}"/>					                
-			            <p:commandButton value="Cancelar" update="panelA" actionListener="#{bigFiveBean.cancelarValueQuestion()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgAgregar').hide()" immediate="true"/>
+			            <p:commandButton value="#{language.add}" update="panelA,:formValueQuestions:tbl" actionListener="#{bigFiveBean.guardarValueQuestion()}" icon="ui ui-icon-add-circle-outline" oncomplete="if (!args.validationFailed){PF('dlgAgregar').hide();}else{PF('dlgAgregar').jq.effect('shake', {times:5}, 100);}"/>					                
+			            <p:commandButton value="#{language.cancel}" update="panelA" actionListener="#{bigFiveBean.cancelarValueQuestion()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgAgregar').hide()" immediate="true"/>
 					</h:form>	      
 			    </p:dialog>	
 				
 										
 			</h:form>
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-				<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				<p:commandButton value="#{language.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{language.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>							
 
 			

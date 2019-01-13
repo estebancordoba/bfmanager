@@ -10,9 +10,9 @@
         <div class="sidebar-logo">
         	<p:link outcome="dashboard">
                 <p:graphicImage name="images/logo-slim.png" library="serenity-layout" />
-                <span class="app-name">BF-Manager</span>            
+                <span class="app-name">#{language.bf_manager}</span>            
             </p:link>
-            <a href="#" class="sidebar-anchor" title="Toggle Menu"></a>
+            <a href="#" class="sidebar-anchor" title="#{language.menu}"></a>
         </div>
 
         <div class="nano">
@@ -20,11 +20,11 @@
                 <div class="layout-menu-container">
                     <h:form id="menuform">
                         <pm:menu>
-                            <p:menuitem id="sr_dashboard" value="Dashboard" icon="&#xE871;" outcome="dashboard"/>                               
-                            <p:submenu id="sr_surveys" label="Cuestionarios" icon="&#xE14F;">
-                                <p:menuitem id="sr_mg_surveys" value="Administrar" icon="&#xe862;" url="/views/manager/surveys.xhtml" />
-                                <p:menuitem id="sr_bfi_surveys" value="Big Five" icon="&#xe3fe;" url="/views/manager/bigFive.xhtml" />  
-                                <p:menuitem id="sr_st_surveys" value="Resultados" icon="&#xe24b;" url="/views/manager/results.xhtml" />                              
+                            <p:menuitem id="sr_dashboard" value="#{language.dashboard}" icon="&#xE871;" outcome="dashboard"/>                               
+                            <p:submenu id="sr_surveys" label="#{language.surveys}" icon="&#xE14F;">
+                                <p:menuitem id="sr_mg_surveys" value="#{language.manage}" icon="&#xe862;" url="/views/manager/surveys.xhtml" />
+                                <p:menuitem id="sr_bfi_surveys" value="#{language.big_five}" icon="&#xe3fe;" url="/views/manager/bigFive.xhtml" />  
+                                <p:menuitem id="sr_st_surveys" value="#{language.results}" icon="&#xe24b;" url="/views/manager/results.xhtml" />                              
                             </p:submenu>
                         </pm:menu>
                     </h:form>

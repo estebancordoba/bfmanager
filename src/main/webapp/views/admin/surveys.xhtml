@@ -7,17 +7,17 @@
                 template="/views/templates/admin/templateAdmin.xhtml">
 
     <ui:define name="breadcrumb">
-    	<li>Cuestionarios</li>
+    	<li>#{language.surveys}</li>
         <li>/</li>
-        <li><p:link outcome="surveys">Administracion</p:link></li>
+        <li><p:link outcome="surveys">#{language.administration}</p:link></li>
     </ui:define>
     
     <ui:define name="content">           	
                 <p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="6000" escape="false" />
                                 
-				<p:panel id="pnl" header="Administración de Encuestas">
+				<p:panel id="pnl" header="#{language.surveys_administration}">
 					
-					<p:commandButton value="Nueva Encuesta" icon="ui ui-icon-add" update=":formSurveys" actionListener="#{surveysBean.renovar()}" oncomplete="PF('dlgAgregar').show()"/>
+					<p:commandButton value="#{language.new_survey}" icon="ui ui-icon-add" update=":formSurveys" actionListener="#{surveysBean.renovar()}" oncomplete="PF('dlgAgregar').show()"/>
 					<br/><br/>
 					
 					<h:form><p:remoteCommand name="prepararA" autoRun="true" update=":formSurveys" actionListener="#{surveysBean.firstSurvey()}" /></h:form>
@@ -30,7 +30,7 @@
 					</h:form>
 					
 					<h:form id="formSurveys">
-						<p:dataTable id="tbl" value="#{surveysBean.surveys}" var="s" emptyMessage="No hay encuestas disponibles"									
+						<p:dataTable id="tbl" value="#{surveysBean.surveys}" var="s" emptyMessage="#{language.no_surveys_available}"									
 									 rows="10" paginator="true" paginatorPosition="bottom"
 									 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 									 rowsPerPageTemplate="5,10,15" 
@@ -38,39 +38,39 @@
 									 
 							<p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 							
-						    <p:column headerText="Titulo" filterBy="#{s.title}" filterMatchMode="contains">
+						    <p:column headerText="#{language.title}" filterBy="#{s.title}" filterMatchMode="contains">
 						        <h:outputText value="#{s.title}" />
 						    </p:column>
 						 
-						    <p:column headerText="Descripcion Corta" filterBy="#{s.shortDescription}" filterMatchMode="contains">
+						    <p:column headerText="#{language.short_description}" filterBy="#{s.shortDescription}" filterMatchMode="contains">
 						        <h:outputText value="#{s.shortDescription}"/>						        
 						    </p:column>
 						 
-						 	<p:column id="sActivated" headerText="Activa">						    	
+						 	<p:column id="sActivated" headerText="#{language.active}">						    	
 						        <p:inputSwitch onchange="changeActived(#{s.idSurvey})" value="#{s.activated}"  />						        
 						    </p:column>
 						 
-						    <p:column headerText="Dueño" filterBy="#{s.userOwner.name}" filterMatchMode="contains">						    	
+						    <p:column headerText="#{language.owner}" filterBy="#{s.userOwner.name}" filterMatchMode="contains">						    	
 						        <h:outputText value="#{s.userOwner.name}" />
 						    </p:column>	
 						    						    
 						    <p:column style="width:25%;text-align: center">
-					            <p:commandButton actionListener="#{surveysBean.actualizar(s.idSurvey)}" update=":formSurveys" oncomplete="PF('dlgAgregar').show()"  icon="ui-icon-pencil" title="Editar"/>					                
+					            <p:commandButton actionListener="#{surveysBean.actualizar(s.idSurvey)}" update=":formSurveys" oncomplete="PF('dlgAgregar').show()"  icon="ui-icon-pencil" title="#{language.edit}"/>					                
 					            
-					            <p:commandButton update=":formSurveys:tbl" actionListener="#{surveysBean.eliminar(s.idSurvey)}" icon="ui-icon-trash" title="Eliminar">
-					            	<p:confirm header="Confirmación" message="Desea eliminar el registro?" icon="ui-icon-alert" />
+					            <p:commandButton update=":formSurveys:tbl" actionListener="#{surveysBean.eliminar(s.idSurvey)}" icon="ui-icon-trash" title="#{language.remove}">
+					            	<p:confirm header="#{language.confirmation}" message="#{language.delete_record}" icon="ui-icon-alert" />
 					            </p:commandButton>
 					            
 					            <h:commandLink actionListener="#{surveysBean.asignarSurvey(s.idSurvey)}" action="/views/admin/assignGroups.xhtml" immediate="true">
-					            	<p:button icon="ui-icon-group-add" title="Asignar Grupos"/>
+					            	<p:button icon="ui-icon-group-add" title="#{language.assign_groups}"/>
 					            </h:commandLink>
 					            
 					            <h:commandLink actionListener="#{surveysBean.asignarSurvey(s.idSurvey)}" action="/views/admin/questions.xhtml" immediate="true">
-					            	<p:button icon="ui-icon-help" title="Preguntas"/>
+					            	<p:button icon="ui-icon-help" title="#{language.questions}"/>
 					            </h:commandLink>
 					                   
 					            <h:commandLink actionListener="#{surveysBean.asignarSurvey(s.idSurvey)}" action="/views/admin/preview.xhtml" target="_blank" immediate="true">
-					            	<p:button icon="ui-icon-present-to-all" title="Vista Previa"/>
+					            	<p:button icon="ui-icon-present-to-all" title="#{language.preview}"/>
 					            </h:commandLink> 					                 
 					            
 					        </p:column>					 
@@ -78,8 +78,8 @@
 						</p:dataTable>
 						
 						<br/>
-						<p:commandButton update=":formSurveys:tbl" icon="ui-icon-playlist-add-check" value="Eliminar elementos seleccionados" actionListener="#{surveysBean.eliminarSurveys()}">
-							<p:confirm header="Confirmación" message="Desea eliminar los registros?" icon="ui-icon-alert" />
+						<p:commandButton update=":formSurveys:tbl" icon="ui-icon-playlist-add-check" value="#{language.delete_selected_elements}" actionListener="#{surveysBean.eliminarSurveys()}">
+							<p:confirm header="#{language.confirmation}" message="#{language.delete_records}" icon="ui-icon-alert" />
 						</p:commandButton>	
 						
 						
@@ -91,23 +91,23 @@
 	        						<div class="row"> 
 	        							<p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
 	        								<h:panelGroup styleClass="md-inputfield">
-		                                    	<p:inputText id="sTitle" value="#{surveysBean.survey.title}" required="true" requiredMessage="Ingrese el titulo"/>
-		                                    	<label>Titulo</label>
+		                                    	<p:inputText id="sTitle" value="#{surveysBean.survey.title}" required="true" requiredMessage="#{language.enter_title}"/>
+		                                    	<label>#{language.title}</label>
 		                                    	<p:message for="sTitle" />
 		                                	</h:panelGroup>
 		                                	
 		                                	<h:panelGroup styleClass="md-inputfield">
 		                                    	<p:inputTextarea scrollHeight="" rows="3" autoResize="false" value="#{surveysBean.survey.shortDescription}"
 		                                    	counter="display" maxlength="100" counterTemplate="{0}"/>
-		                                    	<label>Descripcion Corta</label>
+		                                    	<label>#{language.short_description}</label>
 		                                    	<h:outputText id="display" />
 		                                    	
 		                                	</h:panelGroup>
 		                                	
 		                                	<h:panelGroup>		                                				  		                                		                               		
-		                                    	<p:selectOneMenu id="owner" value="#{surveysBean.survey.userOwner}" converter="#{ownerConverter}" placeholder="Dueño"
-		                                    					required="true" requiredMessage="Seleccione el dueño">
-		                                    		<f:selectItem itemLabel="Dueño" itemValue="#{null}" itemDisabled="true" noSelectionOption="true" />					                														
+		                                    	<p:selectOneMenu id="owner" value="#{surveysBean.survey.userOwner}" converter="#{ownerConverter}" placeholder="#{language.owner}"
+		                                    					required="true" requiredMessage="#{language.select_owner}">
+		                                    		<f:selectItem itemLabel="#{language.owner}" itemValue="#{null}" itemDisabled="true" noSelectionOption="true" />					                														
 													<f:selectItems value="#{usersBean.usuariosGestores}" var="u" itemLabel="#{u.name}" itemValue="#{u}"/>
 												</p:selectOneMenu>
 												<p:message for="owner" />         	
@@ -117,8 +117,8 @@
 						                
 						            </div>
 						            <div class="row">
-						                <h:outputText value="Descripcion:" styleClass="col s2"/>						                
-						                <p:textEditor widgetVar="editorDes" styleClass="col s10" value="#{surveysBean.survey.description}" placeholder="Ingrese una descripcion" height="80">
+						                <h:outputText value="#{language.description}:" styleClass="col s2"/>						                
+						                <p:textEditor widgetVar="editorDes" styleClass="col s10" value="#{surveysBean.survey.description}" placeholder="#{language.enter_description}" height="80">
 									        <f:facet name="toolbar">
 									             <span class="ql-formats">
 									                <button class="ql-bold"></button>
@@ -147,7 +147,7 @@
 									    </p:textEditor>
 								    </div>
 									<div class="row">
-									    <h:outputText value="Instrucciones:" styleClass="col s2"/>						                
+									    <h:outputText value="#{language.instructions}:" styleClass="col s2"/>						                
 						                <p:textEditor widgetVar="editorIns" styleClass="col s10" value="#{surveysBean.survey.instructions}" placeholder="Ingrese las instrucciones" height="80">
 									        <f:facet name="toolbar">
 									             <span class="ql-formats">
@@ -177,34 +177,34 @@
 									    </p:textEditor>  
 									    </div>      
     	    					</p:tab>
-    	    					<p:tab title="Opcionales"> 
+    	    					<p:tab title="#{language.optionals}"> 
     	    						<div class="row">
     	    							<p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
 		                                	<h:panelGroup styleClass="md-inputfield">
 		                                    	<p:inputTextarea id="c_copyright" scrollHeight="" rows="3" autoResize="false" value="#{surveysBean.survey.copyright}"
 		                                    	counter="displayC" maxlength="1000" counterTemplate="{0}"/>
-		                                    	<label>Copyright</label>
+		                                    	<label>#{language.copyright}</label>
 		                                    	<h:outputText id="displayC" />
 		                                    	
 		                                	</h:panelGroup>
 		                                	
 		                                	<h:panelGroup>
-		                                		<h:outputText value="Libre: " for="c_libre"/>
+		                                		<h:outputText value="#{language.free}: " for="c_libre"/>
 								        		<p:selectBooleanCheckbox id="c_libre" value="#{surveysBean.survey.free}"/>         	
 		                                	</h:panelGroup>
 		                                	
 		                                	<h:panelGroup>		                                				  		                                		                               		
-		                                    	<p:selectOneMenu id="surveyType" value="#{surveysBean.survey.surveyType}" converter="#{surveyTypeConverter}" placeholder="Tipo"
-		                                    					  required="true" requiredMessage="Seleccone el tipo de cuestionario">
+		                                    	<p:selectOneMenu id="surveyType" value="#{surveysBean.survey.surveyType}" converter="#{surveyTypeConverter}" placeholder="#{language.type}"
+		                                    					  required="true" requiredMessage="#{language.select_type_survey}">
 		                                    		<p:ajax event="change" listener="#{surveysBean.survey.setOnlyOnce(surveysBean.survey.surveyType.idSurveyType==2 ? true:false)}" update="c_onlyOnce" />		                                  
-		                                    		<f:selectItem itemLabel="Tipo" itemValue="#{null}" itemDisabled="true" noSelectionOption="true" />					                														
+		                                    		<f:selectItem itemLabel="#{language.type}" itemValue="#{null}" itemDisabled="true" noSelectionOption="true" />					                														
 													<f:selectItems value="#{surveysBean.surveyTypes}" var="u" itemLabel="#{u.type}" itemValue="#{u}"/>
 												</p:selectOneMenu>
 												<p:message for="surveyType" />         	
 		                                	</h:panelGroup>
 		                                	
 		                                	<h:panelGroup>
-		                                		<h:outputText value="Responder solo una vez " for="c_onlyOnce"/>
+		                                		<h:outputText value="#{language.reply_only_once}" for="c_onlyOnce"/>
 								        		<p:selectBooleanCheckbox id="c_onlyOnce" value="#{surveysBean.survey.onlyOnce}"
 								        		disabled="#{surveysBean.survey.surveyType.idSurveyType==2 ? true:false}" />								        												        			          	
 		                                	</h:panelGroup>
@@ -212,10 +212,10 @@
 	        							</p:panelGrid> 
         							</div>  	    						
     	    						<div class="row">	
-	                          			<h:outputText value="Banner: " styleClass="col s2" />		
+	                          			<h:outputText value="#{language.banner}: " styleClass="col s2" />		
 			                          	<p:fileUpload styleClass="col s5" fileUploadListener="#{surveysBean.subirImagen}" mode="advanced" dragDropSupport="true"
 				                          update="uImg" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-				                          label="Elegir"/>					                      				                          
+				                          label="#{language.choose}"/>					                      				                          
 				                         <p:graphicImage styleClass="col s5" width="100%" height="70" id="uImg" value="#{surveysBean.uImagen}"/>
 			                        </div> 
 				                             	    							
@@ -223,16 +223,16 @@
    	    					</p:tabView>
    	    					
    	    					<p:separator/>
-				            <p:commandButton value="Guardar" update="tabA,:formSurveys:tbl" actionListener="#{surveysBean.guardar()}" icon="ui ui-icon-add-circle-outline" oncomplete="if (!args.validationFailed){PF('dlgAgregar').hide();}else{PF('dlgAgregar').jq.effect('shake', {times:5}, 100);}"/>					                
-				            <p:commandButton value="Cancelar" update="tabA" actionListener="#{surveysBean.cancelar()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgAgregar').hide()" immediate="true"/>
+				            <p:commandButton value="#{language.save}" update="tabA,:formSurveys:tbl" actionListener="#{surveysBean.guardar()}" icon="ui ui-icon-add-circle-outline" oncomplete="if (!args.validationFailed){PF('dlgAgregar').hide();}else{PF('dlgAgregar').jq.effect('shake', {times:5}, 100);}"/>					                
+				            <p:commandButton value="#{language.cancel}" update="tabA" actionListener="#{surveysBean.cancelar()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgAgregar').hide()" immediate="true"/>
 				            </h:form>
 					    </p:dialog>	
 						    
 									
 					</h:form>
 					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-						<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-						<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						<p:commandButton value="#{language.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="#{language.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 					</p:confirmDialog>
 				</p:panel>	
             </ui:define>

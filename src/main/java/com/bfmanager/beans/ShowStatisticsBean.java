@@ -80,7 +80,7 @@ public class ShowStatisticsBean implements Serializable {
         		op.setStyle("text-align:center;");
         		
         		OutputLabel ol = new OutputLabel();        		
-        		ol.setValue("NO EXISTE GRAFICA PARA ESTE TIPO DE PREGUNTA");
+        		ol.setValue(LanguageBean.obtenerMensaje("no_graph_type_question"));
         		
         		op.getChildren().add(ol);        		
         		pGrid.getChildren().add(op);

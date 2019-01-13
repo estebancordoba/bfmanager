@@ -76,7 +76,7 @@ public class QuestionsBean implements Serializable {
 			try {
 				questionsService.saveQuestion(question);
 				this.cancelar();
-				MsgUtil.msgInfo("Exito!", "Pregunta guardada correctamente");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("question_saved_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -84,7 +84,7 @@ public class QuestionsBean implements Serializable {
 			try {
 				questionsService.updateQuestion(question);
 				this.cancelar();
-				MsgUtil.msgInfo("Exito!", "Pregunta actualizada");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("question_updated_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -102,7 +102,7 @@ public class QuestionsBean implements Serializable {
 		try {
 			Questions question_eliminar = questionsService.searchxId(id_s);		
 			questionsService.removeQuestion(question_eliminar);						
-			MsgUtil.msgInfo("Exito!", "Pregunta eliminada correctamente");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("question_removed_correctly"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -114,9 +114,9 @@ public class QuestionsBean implements Serializable {
 			for (Questions eliminar : selectedQuestions) {	
 				questionsService.removeQuestion(eliminar);
 			}
-			MsgUtil.msgInfo("Exito!", "Registros eliminados correctamente.");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("records_removed_correctly"));
 		} catch (Exception e) {
-			MsgUtil.msgError("Error!", "Ocurrio un error al intentar eliminar los registros.");
+			MsgUtil.msgError(LanguageBean.obtenerMensaje("error"), LanguageBean.obtenerMensaje("error_remove_records"));
 			e.printStackTrace();
 		}		
 		selectedQuestions=null;

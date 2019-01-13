@@ -125,7 +125,7 @@ public class GroupsBean implements Serializable {
 			try {
 				groupsService.saveGroup(group);
 				this.cancelarGroup();
-				MsgUtil.msgInfo("Exito!", "Grupo guardado correctamente");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("group_saved_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -133,7 +133,7 @@ public class GroupsBean implements Serializable {
 			try {
 				groupsService.updateGroup(group);
 				this.cancelarGroup();
-				MsgUtil.msgInfo("Exito!", "Grupo actualizado");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("group_updated_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -154,7 +154,7 @@ public class GroupsBean implements Serializable {
 		try {
 			Groups eliminar = groupsService.searchGroupxId(id_group);		
 			groupsService.removeGroup(eliminar);						
-			MsgUtil.msgInfo("Exito!", "Grupo eliminado correctamente");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("group_removed_correctly"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -166,9 +166,9 @@ public class GroupsBean implements Serializable {
 			for (Groups eliminar : selectedGroups) {	
 				groupsService.removeGroup(eliminar);
 			}
-			MsgUtil.msgInfo("Exito!", "Registros eliminados correctamente.");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("records_removed_correctly"));
 		} catch (Exception e) {
-			MsgUtil.msgError("Error!", "Ocurrio un error al intentar eliminar los registros.");
+			MsgUtil.msgError(LanguageBean.obtenerMensaje("error"), LanguageBean.obtenerMensaje("error_remove_records"));
 			e.printStackTrace();
 		}		
 		selectedGroups=null;
@@ -220,7 +220,7 @@ public class GroupsBean implements Serializable {
 				user_group.setIdGroup(id_group);
 				groupsService.saveUserGroup(user_group);
 				this.cancelarUserGroup();
-				MsgUtil.msgInfo("Exito!", "Usuario asignado correctamente");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("user_assigned_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -232,7 +232,7 @@ public class GroupsBean implements Serializable {
 			user_group.setIdGroup(id_group);
 			groupsService.saveUserGroup(user_group);
 			this.cancelarUserGroup();
-			MsgUtil.msgInfo("Exito!", "Usuario asignado correctamente");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("user_assigned_correctly"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -243,7 +243,7 @@ public class GroupsBean implements Serializable {
 		try {
 			UserGroup eliminar = groupsService.searchUserGroupxId(id_user_group);		
 			groupsService.removeUserGroup(eliminar);						
-			MsgUtil.msgInfo("Exito!", "Usuario asignado eliminado correctamente");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("user_assigned_removed_correctly"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -255,9 +255,9 @@ public class GroupsBean implements Serializable {
 			for (UserGroup eliminar : selectedUserGroup) {	
 				groupsService.removeUserGroup(eliminar);
 			}
-			MsgUtil.msgInfo("Exito!", "Registros eliminados correctamente.");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("records_removed_correctly"));
 		} catch (Exception e) {
-			MsgUtil.msgError("Error!", "Ocurrio un error al intentar eliminar los registros.");
+			MsgUtil.msgError(LanguageBean.obtenerMensaje("error"), LanguageBean.obtenerMensaje("error_remove_records"));
 			e.printStackTrace();
 		}		
 		selectedUserGroup=null;
@@ -279,7 +279,7 @@ public class GroupsBean implements Serializable {
 			survey_group.setIdSurvey(id_survey);
 			groupsService.saveSurveyGroup(survey_group);
 			this.cancelarSurveyGroup();
-			MsgUtil.msgInfo("Exito!", "Grupo asignado correctamente");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("group_assigned_correctly"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -293,7 +293,7 @@ public class GroupsBean implements Serializable {
 				survey_group.setIdGroup(id_group);				
 				groupsService.saveSurveyGroup(survey_group);
 				this.cancelarSurveyGroup();
-				MsgUtil.msgInfo("Exito!", "Grupo asignado correctamente");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("group_assigned_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -304,7 +304,7 @@ public class GroupsBean implements Serializable {
 		try {
 			SurveyGroup eliminar = groupsService.searchSurveyGroupxId(id_survey_group);		
 			groupsService.removeSurveyGroup(eliminar);						
-			MsgUtil.msgInfo("Exito!", "Grupo asignado eliminado correctamente");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("group_assigned_removed_correctly"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -316,9 +316,9 @@ public class GroupsBean implements Serializable {
 			for (SurveyGroup eliminar : selectedSurveyGroup) {	
 				groupsService.removeSurveyGroup(eliminar);
 			}
-			MsgUtil.msgInfo("Exito!", "Registros eliminados correctamente.");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("records_removed_correctly"));
 		} catch (Exception e) {
-			MsgUtil.msgError("Error!", "Ocurrio un error al intentar eliminar los registros.");
+			MsgUtil.msgError(LanguageBean.obtenerMensaje("error"), LanguageBean.obtenerMensaje("error_remove_records"));
 			e.printStackTrace();
 		}		
 		selectedSurveyGroup=null;

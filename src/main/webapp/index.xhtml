@@ -15,20 +15,20 @@
 									 rows="10" paginator="true" paginatorPosition="bottom"
 									 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 									 rowsPerPageTemplate="5,10,15" filteredValue="#{surveysBean.filterSurveys}" widgetVar="tblE">
-							<f:facet name="header">Cuestionarios Libres</f:facet>
+							<f:facet name="header">#{language.free_surveys}</f:facet>
 									 
-						    <p:column headerText="Titulo" filterBy="#{s.title}" filterMatchMode="contains">
+						    <p:column headerText="#{language.title}" filterBy="#{s.title}" filterMatchMode="contains">
 						        <h:outputText value="#{s.title}" />
 						    </p:column>
 						 
-						    <p:column headerText="Descripcion Corta" filterBy="#{s.shortDescription}" filterMatchMode="contains">
+						    <p:column headerText="#{language.short_description}" filterBy="#{s.shortDescription}" filterMatchMode="contains">
 						        <h:outputText value="#{s.shortDescription}" />
 						    </p:column>
 						 
-						    <p:column headerText="Dueño" style="text-align:center;" filterBy="#{s.userOwner}" filterMatchMode="exact">
+						    <p:column headerText="#{language.owner}" style="text-align:center;" filterBy="#{s.userOwner}" filterMatchMode="exact">
 								<f:facet name="filter">
 									<p:selectOneMenu onchange="PF('tblE').filter()">
-										<f:selectItem itemLabel="Elegir" itemValue="#{null}" noSelectionOption="true" />
+										<f:selectItem itemLabel="#{language.choose}" itemValue="#{null}" noSelectionOption="true" />
 										<f:selectItems value="#{usersBean.usuariosGestores}" var="rl" itemLabel="#{rl.name}" />
 									</p:selectOneMenu>
 								</f:facet>
@@ -37,7 +37,7 @@
 						    
 						    <p:column style="width:15%;text-align: center">
 					            <h:commandLink actionListener="#{surveysBean.asignarSurvey(s.idSurvey)}" action="/views/guest/answers.xhtml">
-					            	<p:button icon="ui-icon-question-answer" title="Preguntas"/>
+					            	<p:button icon="ui-icon-question-answer" title="#{language.questions}"/>
 					            </h:commandLink>
 					        </p:column>
 						    

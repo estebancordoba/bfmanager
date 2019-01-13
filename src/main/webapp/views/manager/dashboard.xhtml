@@ -8,21 +8,21 @@
     <ui:define name="content">            	
                <h:form id="formEncuestas">
                						
-					<p:dataTable id="tblE" value="#{surveysBean.getSurveysxIdManager(usersBean.obtenerUsuario().idUser)}" var="s" emptyMessage="No hay encuestas disponibles"
+					<p:dataTable id="tblE" value="#{surveysBean.getSurveysxIdManager(usersBean.obtenerUsuario().idUser)}" var="s" emptyMessage="#{language.no_surveys_available}"
 								 rows="10" paginator="true" paginatorPosition="bottom"
 								 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								 rowsPerPageTemplate="5,10,15">
-						<f:facet name="header">Cuestionarios registrados como Dueño</f:facet>
+						<f:facet name="header">#{language.registered_surveys_owner}</f:facet>
 								 
-					    <p:column headerText="Titulo" filterBy="#{s.title}" filterMatchMode="contains">
+					    <p:column headerText="#{language.title}" filterBy="#{s.title}" filterMatchMode="contains">
 					        <h:outputText value="#{s.title}" />
 					    </p:column>
 					 
-					    <p:column headerText="Descripcion Corta" filterBy="#{s.shortDescription}" filterMatchMode="contains">
+					    <p:column headerText="#{language.short_description}" filterBy="#{s.shortDescription}" filterMatchMode="contains">
 					        <h:outputText value="#{s.shortDescription}" />
 					    </p:column>
 					 
-					    <p:column headerText="Dueño" filterBy="#{s.userOwner.name}" filterMatchMode="contains">						    	
+					    <p:column headerText="#{language.owner}" filterBy="#{s.userOwner.name}" filterMatchMode="contains">						    	
 					        <h:outputText value="#{s.userOwner.name}" />
 					    </p:column>
 					    
@@ -33,25 +33,25 @@
 			<h:form id="formUsuarios">
 		
 				
-					<p:dataTable id="tbl" value="#{usersBean.usuariosUsuario}" var="u" emptyMessage="Sin registros" rows="10" paginator="true"
+					<p:dataTable id="tbl" value="#{usersBean.usuariosUsuario}" var="u" emptyMessage="#{language.no_records}" rows="10" paginator="true"
 						paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						rowsPerPageTemplate="5,10,15" filteredValue="#{usersBean.filterUsers}" widgetVar="tbl">
 		
-						<f:facet name="header">Usuarios registrados</f:facet>
+						<f:facet name="header">#{language.registered_users}</f:facet>
 		
 						<p:column headerText="ID" style="text-align:center;" filterBy="#{u.idUser}" filterMatchMode="exact">
 							<h:outputText value="#{u.idUser}" />
 						</p:column>
 		
-						<p:column headerText="Nombre" style="text-align:center;" filterBy="#{u.name}" filterMatchMode="contains">
+						<p:column headerText="#{language.name}" style="text-align:center;" filterBy="#{u.name}" filterMatchMode="contains">
 							<h:outputText value="#{u.name} #{u.surname}" />
 						</p:column>
 		
-						<p:column headerText="Email" style="text-align:center;" filterBy="#{u.email}" filterMatchMode="exact">
+						<p:column headerText="#{language.email}" style="text-align:center;" filterBy="#{u.email}" filterMatchMode="exact">
 							<h:outputText value="#{u.email}" />
 						</p:column>
 		
-						<p:column headerText="Telefono" style="text-align:center;" filterBy="#{u.phone}" filterMatchMode="contains">
+						<p:column headerText="#{language.phone}" style="text-align:center;" filterBy="#{u.phone}" filterMatchMode="contains">
 							<h:outputText value="#{u.phone}" />
 						</p:column>
 		

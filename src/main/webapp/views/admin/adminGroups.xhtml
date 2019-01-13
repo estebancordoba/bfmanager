@@ -6,15 +6,15 @@
                 template="/views/templates/admin/templateAdmin.xhtml">
     
     <ui:define name="breadcrumb">
-    	<li>Administracion</li>
+    	<li>#{language.administration}</li>
         <li>/</li>
-    	<li><p:link outcome="adminGroups">Grupos</p:link></li>        
+    	<li><p:link outcome="adminGroups">#{language.groups}</p:link></li>        
     </ui:define>
                 
     <ui:define name="content">            	
                 <p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="2000" escape="false" />
 
-				<p:panel id="pnl" header="Administración de Grupos">
+				<p:panel id="pnl" header="#{language.group_administration}">
 									
 					<p:commandButton value="Nuevo Grupo" icon="ui ui-icon-add" update=":formGroups" actionListener="#{groupsBean.cancelarGroup()}" oncomplete="PF('dlgAgregar').show()"/>
 					<br/><br/>
@@ -22,42 +22,42 @@
 					<h:form><p:remoteCommand name="prepararA" autoRun="true" update=":formGroups" actionListener="#{groupsBean.firstGroup()}" /></h:form>
 					
 					<h:form id="formGroups">
-						<p:dataTable id="tbl" value="#{groupsBean.groups}" var="g" emptyMessage="Sin registros"
+						<p:dataTable id="tbl" value="#{groupsBean.groups}" var="g" emptyMessage="#{language.no_records}"
 							widgetVar="tbl"
 							rows="10" paginator="true" paginatorPosition="bottom" 
 							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						 	rowsPerPageTemplate="5,10,15" 
 						 	rowKey="#{g.idGroup}" selection="#{groupsBean.selectedGroups}">
 			
-							<f:facet name="header">Grupos registrados</f:facet>
+							<f:facet name="header">#{language.registered_groups}</f:facet>
 							
 							<p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 										
-							<p:column headerText="Nombre" style="text-align:center;" filterBy="#{g.name}" filterMatchMode="contains">
+							<p:column headerText="#{language.name}" style="text-align:center;" filterBy="#{g.name}" filterMatchMode="contains">
 								<h:outputText value="#{g.name}" />
 							</p:column>
 			
-							<p:column headerText="Descripcion" style="text-align:center;" filterBy="#{g.description}" filterMatchMode="exact">
+							<p:column headerText="#{language.description}" style="text-align:center;" filterBy="#{g.description}" filterMatchMode="exact">
 								<h:outputText value="#{g.description}" />
 							</p:column>
 							
 							<p:column style="width:20%;text-align: center">
 								<h:commandLink actionListener="#{groupsBean.prepararGroup(g.idGroup)}" action="/views/admin/managerGroups.xhtml" immediate="true">
-					            	<p:button icon="ui-icon-person-add" title="Asignar Usuarios"/>
+					            	<p:button icon="ui-icon-person-add" title="#{language.assign_users}"/>
 					            </h:commandLink>
 							    					            					            
-					            <p:commandButton actionListener="#{groupsBean.actualizarGroup(g.idGroup)}" update=":formGroups" oncomplete="PF('dlgAgregar').show()" icon="ui-icon-pencil" title="Editar"/>					        
+					            <p:commandButton actionListener="#{groupsBean.actualizarGroup(g.idGroup)}" update=":formGroups" oncomplete="PF('dlgAgregar').show()" icon="ui-icon-pencil" title="#{language.edit}"/>					        
 					            
-					            <p:commandButton update=":formGroups:tbl" actionListener="#{groupsBean.eliminarGroup(g.idGroup)}" icon="ui-icon-trash" title="Eliminar">
-					            	<p:confirm header="Confirmación" message="Desea eliminar el registro?" icon="ui-icon-alert" />
+					            <p:commandButton update=":formGroups:tbl" actionListener="#{groupsBean.eliminarGroup(g.idGroup)}" icon="ui-icon-trash" title="#{language.remove}">
+					            	<p:confirm header="#{language.confirmation}" message="#{language.delete_record}" icon="ui-icon-alert" />
 					            </p:commandButton>
 					        </p:column>	
 			
 						</p:dataTable>
 						
 						<br/>
-						<p:commandButton update=":formGroups:tbl" icon="ui-icon-playlist-add-check" value="Eliminar elementos seleccionados" actionListener="#{groupsBean.eliminarVariosGrupos()}">
-							<p:confirm header="Confirmación" message="Desea eliminar los registros?" icon="ui-icon-alert" />
+						<p:commandButton update=":formGroups:tbl" icon="ui-icon-playlist-add-check" value="#{language.delete_selected_elements}" actionListener="#{groupsBean.eliminarVariosGrupos()}">
+							<p:confirm header="#{language.confirmation}" message="#{language.delete_records}" icon="ui-icon-alert" />
 						</p:commandButton>
 		    
 					    <p:dialog widgetVar="dlgAgregar" closeOnEscape="true" id="dialogA" responsive="true" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
@@ -65,27 +65,27 @@
 							<h:form>														
 					            <p:panelGrid columns="1" id="panelAgregar" layout="grid" styleClass="ui-panelgrid-blank form-group">
 									<h:panelGroup styleClass="md-inputfield">
-	                                   	<p:inputText id="gName" value="#{groupsBean.group.name}" required="true" requiredMessage="Ingrese un nombre"/>
-	                                   	<label>Nombre</label>
+	                                   	<p:inputText id="gName" value="#{groupsBean.group.name}" required="true" requiredMessage="#{language.enter_name}"/>
+	                                   	<label>#{language.name}</label>
 	                                   	<p:message for="gName" />
 	                               	</h:panelGroup>
 	                               	
 	                               	<h:panelGroup styleClass="md-inputfield">
 	                                   	<p:inputTextarea id="gDes" value="#{groupsBean.group.description}"/>
-	                                   	<label>Descripcion</label>	                                   	
+	                                   	<label>#{language.description}</label>	                                   	
 	                               	</h:panelGroup>	
 								</p:panelGrid>        
 					            <p:separator/>					            					            
-					            <p:commandButton value="Guardar" update="panelAgregar,:formGroups:tbl" actionListener="#{groupsBean.guardarGroup()}" icon="ui ui-icon-add-circle-outline" oncomplete="if (!args.validationFailed){PF('dlgAgregar').hide();}else{PF('dlgAgregar').jq.effect('shake', {times:5}, 100);}"/>				            					                
-					            <p:commandButton value="Cancelar" update="panelAgregar" actionListener="#{groupsBean.cancelarGroup()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgAgregar').hide()" immediate="true"/>
+					            <p:commandButton value="#{language.save}" update="panelAgregar,:formGroups:tbl" actionListener="#{groupsBean.guardarGroup()}" icon="ui ui-icon-add-circle-outline" oncomplete="if (!args.validationFailed){PF('dlgAgregar').hide();}else{PF('dlgAgregar').jq.effect('shake', {times:5}, 100);}"/>				            					                
+					            <p:commandButton value="#{language.cancel}" update="panelAgregar" actionListener="#{groupsBean.cancelarGroup()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgAgregar').hide()" immediate="true"/>
 					        </h:form>				            						        
 					    </p:dialog>
 					    
 					</h:form>
 					
 					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-						<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-						<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						<p:commandButton value="#{language.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="#{language.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 					</p:confirmDialog>
 				</p:panel>	
             </ui:define>

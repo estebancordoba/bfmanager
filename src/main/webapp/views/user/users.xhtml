@@ -9,31 +9,31 @@
                 <h:form id="formEncuestas">
                 	<p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="6000" escape="false" />
 						<p:outputLabel value="#{usersBean.obtenerUsuario().name} #{usersBean.obtenerUsuario().surname}"/>                                   						
-						<p:dataTable id="tblE" value="#{groupsBean.getSurveysGroupsxIdUser(usersBean.obtenerUsuario().idUser)}" var="s" emptyMessage="No hay cuestionarios disponibles"
+						<p:dataTable id="tblE" value="#{groupsBean.getSurveysGroupsxIdUser(usersBean.obtenerUsuario().idUser)}" var="s" emptyMessage="#{language.no_surveys_available}"
 									 rows="10" paginator="true" paginatorPosition="bottom"
 									 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 									 rowsPerPageTemplate="5,10,15">
 							<f:facet name="header">Cuestionarios disponibles para Usuario</f:facet>
 									 
-						    <p:column headerText="Titulo" filterBy="#{surveysBean.getSurveyxId(s.idSurvey).title}" filterMatchMode="contains">
+						    <p:column headerText="#{language.title}" filterBy="#{surveysBean.getSurveyxId(s.idSurvey).title}" filterMatchMode="contains">
 						        <h:outputText value="#{surveysBean.getSurveyxId(s.idSurvey).title}" />
 						    </p:column>
 						 
-						    <p:column headerText="Descripcion Corta" filterBy="#{surveysBean.getSurveyxId(s.idSurvey).shortDescription}" filterMatchMode="contains">
+						    <p:column headerText="#{language.short_description}" filterBy="#{surveysBean.getSurveyxId(s.idSurvey).shortDescription}" filterMatchMode="contains">
 						        <h:outputText value="#{surveysBean.getSurveyxId(s.idSurvey).shortDescription}" />
 						    </p:column>
 						 
-						    <p:column headerText="Dueño" filterBy="#{surveysBean.getSurveyxId(s.idSurvey).userOwner.name}" filterMatchMode="contains">						    	
+						    <p:column headerText="#{language.owner}" filterBy="#{surveysBean.getSurveyxId(s.idSurvey).userOwner.name}" filterMatchMode="contains">						    	
 						        <h:outputText value="#{surveysBean.getSurveyxId(s.idSurvey).userOwner.name}" />
 						    </p:column>
 						    
-						    <p:column headerText="Grupo" filterBy="#{groupsBean.getGroupxId(s.idGroup).name}" filterMatchMode="contains">						    	
+						    <p:column headerText="#{language.group}" filterBy="#{groupsBean.getGroupxId(s.idGroup).name}" filterMatchMode="contains">						    	
 						        <h:outputText value="#{groupsBean.getGroupxId(s.idGroup).name}" />
 						    </p:column>
 						    
 						    <p:column style="width:15%;text-align: center">
 					            <h:commandLink actionListener="#{showSurveyBean.preparaDatos(s.idSurvey,s.idGroup)}" action="/views/user/answers.xhtml" disabled="#{answersBean.getSurveyAnswered(surveysBean.getSurveyxId(s.idSurvey).onlyOnce,usersBean.obtenerUsuario().idUser,s.idSurvey,s.idGroup)}">
-					            	<p:button icon="ui-icon-question-answer" title="Preguntas" disabled="#{answersBean.getSurveyAnswered(surveysBean.getSurveyxId(s.idSurvey).onlyOnce,usersBean.obtenerUsuario().idUser,s.idSurvey,s.idGroup)}"/>
+					            	<p:button icon="ui-icon-question-answer" title="#{language.questions}" disabled="#{answersBean.getSurveyAnswered(surveysBean.getSurveyxId(s.idSurvey).onlyOnce,usersBean.obtenerUsuario().idUser,s.idSurvey,s.idGroup)}"/>
 					            </h:commandLink>
 					        </p:column>
 						</p:dataTable>

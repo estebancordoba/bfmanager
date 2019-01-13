@@ -67,7 +67,7 @@ public class ShowSurveyBean implements Serializable {
     
 	//Constructores, Getters y Setters
 	public ShowSurveyBean(){
-		//RequestContext.getCurrentInstance().execute("alert('Aquí tu código Javascript');");
+		//RequestContext.getCurrentInstance().execute("alert('Aquï¿½ tu cï¿½digo Javascript');");
     }
 	
 	public Panel getPanels() {
@@ -131,7 +131,7 @@ public class ShowSurveyBean implements Serializable {
 	
 	       		inputtext.setId("st_"+question.getIdQuestion());
 	       		
-	       		inputtext.setRequiredMessage("Debe ingresar un dato");/////
+	       		inputtext.setRequiredMessage(LanguageBean.obtenerMensaje("should_enter_data"));/////
 	       		inputtext.setRequired(question.getRequired());/////
 	       		
 	       		OutputLabel ot = new OutputLabel();
@@ -160,7 +160,7 @@ public class ShowSurveyBean implements Serializable {
 	       		
 	       		selectoneradio.setId("mc_"+question.getIdQuestion());
 	       		
-	       		selectoneradio.setRequiredMessage("Debe seleccionar una opcion");/////
+	       		selectoneradio.setRequiredMessage(LanguageBean.obtenerMensaje("should_select_option"));/////
 	       		selectoneradio.setRequired(question.getRequired());/////
 	       		
 	       		OutputLabel ot = new OutputLabel();
@@ -191,7 +191,7 @@ public class ShowSurveyBean implements Serializable {
 	       		
 	       		selectonemenu.setId("dd_"+question.getIdQuestion());
 	       		
-	       		selectonemenu.setRequiredMessage("Debe seleccionar una opcion");/////
+	       		selectonemenu.setRequiredMessage(LanguageBean.obtenerMensaje("should_select_option"));/////
 	       		selectonemenu.setRequired(question.getRequired());/////
 	       			       		
 	       		OutputLabel ot = new OutputLabel();
@@ -218,7 +218,7 @@ public class ShowSurveyBean implements Serializable {
 	       		
 	       		selectoneradio.setId("ls_"+question.getIdQuestion());
 	       		
-	       		selectoneradio.setRequiredMessage("Debe seleccionar una opcion");/////
+	       		selectoneradio.setRequiredMessage(LanguageBean.obtenerMensaje("should_select_option"));/////
 	       		selectoneradio.setRequired(question.getRequired());/////
 	       			       		
 	       		OutputLabel ot = new OutputLabel();
@@ -397,7 +397,7 @@ public class ShowSurveyBean implements Serializable {
     		RequestContext context = RequestContext.getCurrentInstance();    		    		
     		context.execute("PF('dlgRes').show();");    		
     		
-    		MsgUtil.msgInfo("Exito!", "Respuestas enviadas exitosamente.");
+    		MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("answers_successfully_sent"));
     		
 		} catch (Exception e) {
 			e.printStackTrace();

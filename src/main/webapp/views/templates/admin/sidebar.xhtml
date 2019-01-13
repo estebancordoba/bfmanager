@@ -10,9 +10,9 @@
         <div class="sidebar-logo">
         	<p:link outcome="dashboard">
                 <p:graphicImage name="images/logo-slim.png" library="serenity-layout" />
-                <span class="app-name">BF-Manager</span>            
+                <span class="app-name">#{language.bf_manager}</span>            
             </p:link>
-            <a href="#" class="sidebar-anchor" title="Toggle Menu"></a>
+            <a href="#" class="sidebar-anchor" title="#{language.menu}"></a>
         </div>
 
         <div class="nano">
@@ -20,18 +20,18 @@
                 <div class="layout-menu-container">
                     <h:form id="menuform">
                         <pm:menu>
-                            <p:menuitem id="sr_dashboard" value="Dashboard" icon="&#xE871;" outcome="dashboard"/>                                
-                            <p:submenu id="sr_surveys" label="Cuestionarios" icon="&#xE14F;">
-                                <p:menuitem id="sr_mg_surveys" value="Administrar" icon="&#xe862;" url="/views/admin/surveys.xhtml" />                               
-                                <p:menuitem id="sr_bfi_surveys" value="Big Five" icon="&#xe3fe;" url="/views/admin/bigFive.xhtml" />
-                                <p:menuitem id="sr_st_surveys" value="Resultados" style="white-space: nowrap;width: auto !important;" icon="&#xe24b;" url="/views/admin/results.xhtml" />
+                            <p:menuitem id="sr_dashboard" value="#{language.dashboard}" icon="&#xE871;" outcome="dashboard"/>                                
+                            <p:submenu id="sr_surveys" label="#{language.surveys}" icon="&#xE14F;">
+                                <p:menuitem id="sr_mg_surveys" value="#{language.manage}" icon="&#xe862;" url="/views/admin/surveys.xhtml" />                               
+                                <p:menuitem id="sr_bfi_surveys" value="#{language.big_five}" icon="&#xe3fe;" url="/views/admin/bigFive.xhtml" />
+                                <p:menuitem id="sr_st_surveys" value="#{language.results}" style="white-space: nowrap;width: auto !important;" icon="&#xe24b;" url="/views/admin/results.xhtml" />
                             </p:submenu> 
-                            <p:menuitem id="sr_bfi_suggestions" value="Sugerencias" icon="&#xe838;" url="/views/admin/suggestions.xhtml" >
+                            <p:menuitem id="sr_bfi_suggestions" value="#{language.suggestions}" icon="&#xe838;" url="/views/admin/suggestions.xhtml" >
                             	<f:attribute name="badge" value="#{ratingsBean.ratingNoView}" />
                             </p:menuitem>                                          
-                            <p:submenu id="sr_settings" label="Administracion" icon="&#xe8b8;">
-                                <p:menuitem id="sr_sett_users" value="Gestionar Usuarios" icon="&#xe0ba;" url="/views/admin/adminUsers.xhtml" />
-                                <p:menuitem id="sr_sett_groups" value="Gestionar Grupos" icon="&#xe7ef;" url="/views/admin/adminGroups.xhtml" />
+                            <p:submenu id="sr_settings" label="#{language.administration}" icon="&#xe8b8;">
+                                <p:menuitem id="sr_sett_users" value="#{language.manage_users}" icon="&#xe0ba;" url="/views/admin/adminUsers.xhtml" />
+                                <p:menuitem id="sr_sett_groups" value="#{language.manage_groups}" icon="&#xe7ef;" url="/views/admin/adminGroups.xhtml" />
                             </p:submenu>                              
                         </pm:menu>                        
                     </h:form>

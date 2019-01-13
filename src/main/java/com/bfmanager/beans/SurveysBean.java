@@ -108,7 +108,7 @@ public class SurveysBean implements Serializable {
 			try {				
 				surveysService.saveSurvey(survey);
 				this.cancelar();
-				MsgUtil.msgInfo("Exito!", "Cuestionario guardado correctamente.");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("survey_saved_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -116,7 +116,7 @@ public class SurveysBean implements Serializable {
 			try {
 				surveysService.updateSurvey(survey);
 				this.cancelar();
-				MsgUtil.msgInfo("Exito!", "Cuestionario actualizado");
+				MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("survey_updated_correctly"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -135,7 +135,7 @@ public class SurveysBean implements Serializable {
 		try {
 			Surveys survey_eliminar = surveysService.searchxId(id_s);			
 			surveysService.removeSurvey(survey_eliminar);
-			MsgUtil.msgInfo("Exito!", "Cuestionario eliminado correctamente");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("survey_removed_correctly"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -147,9 +147,9 @@ public class SurveysBean implements Serializable {
 			for (Surveys eliminar : selectedSurveys) {	
 				surveysService.removeSurvey(eliminar);
 			}
-			MsgUtil.msgInfo("Exito!", "Registros eliminados correctamente.");
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("records_removed_correctly"));
 		} catch (Exception e) {
-			MsgUtil.msgError("Error!", "Ocurrio un error al intentar eliminar los registros.");
+			MsgUtil.msgError(LanguageBean.obtenerMensaje("error"), LanguageBean.obtenerMensaje("error_remove_records"));
 			e.printStackTrace();
 		}		
 		selectedSurveys=null;
@@ -178,11 +178,11 @@ public class SurveysBean implements Serializable {
 				su.setActivated(!activado);			
 				surveysService.updateSurvey(su);	
 				
-				if(activado) MsgUtil.msgInfo("Exito!", "Cuestionario desactivado");
-				else MsgUtil.msgInfo("Exito!", "Cuestionario activado");
+				if(activado) MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("survey_disabled"));
+				else MsgUtil.msgInfo(LanguageBean.obtenerMensaje("success"), LanguageBean.obtenerMensaje("survey_enabled"));
 			}
 			else{
-				MsgUtil.msgWarning("No es posible activar el Cuestionario "+su.getTitle()+"!", "Se deben configurar todos los parametros para el cuestionario de tipo BigFive");
+				MsgUtil.msgWarning(LanguageBean.obtenerMensaje("survey_enabled")+" "+su.getTitle()+"!", LanguageBean.obtenerMensaje("should_configure_parameters_bf"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -225,7 +225,7 @@ public class SurveysBean implements Serializable {
 			ImagesUtils iu= new ImagesUtils();
 			uImagen=iu.imgTemp(event.getFile().getContents(), event.getFile().getFileName());
 		} catch (Exception e) {
-			System.err.print("ERROR AL SUBIR: "+e);
+			MsgUtil.msgInfo(LanguageBean.obtenerMensaje("error"), LanguageBean.obtenerMensaje("error_upload_image"));
 		}
 	}
 }

@@ -7,29 +7,29 @@
                 
                 
     <ui:define name="breadcrumb">
-    	<li>Cuestionarios</li>
+    	<li>#{language.surveys}</li>
         <li>/</li>
-        <li><p:link outcome="surveys">Administracion</p:link></li>
+        <li><p:link outcome="surveys">#{language.administration}</p:link></li>
         <li>/</li>
-        <li><p:link outcome="questions">Preguntas</p:link></li>
+        <li><p:link outcome="questions">#{language.questions}</p:link></li>
         <li>/</li>
-        <li><p:link outcome="multipleChoice">Seleccion Multiple</p:link></li>
+        <li><p:link outcome="multipleChoice">#{language.multiple_choice}</p:link></li>
     </ui:define> 
                 
     <ui:define name="content"> 
                 <p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="6000" escape="false" />
 
-				<p:panel id="pnl" header="Seleccion Multiple">					
-					<p:outputLabel id="nom_enc" value="Pregunta: #{questionsBean.question.title}"/><br/><br/>					
+				<p:panel id="pnl" header="#{language.multiple_choice}">					
+					<p:outputLabel id="nom_enc" value="#{language.question}: #{questionsBean.question.title}"/><br/><br/>					
 					
-					<p:commandButton update=":formOptions" actionListener="#{questionsAllBean.renovarMC(questionsBean.question.idQuestion)}" value="Nueva Opcion" icon="ui ui-icon-add" oncomplete="PF('dlgAgregar').show()"></p:commandButton>						
+					<p:commandButton update=":formOptions" actionListener="#{questionsAllBean.renovarMC(questionsBean.question.idQuestion)}" value="#{language.new_option}" icon="ui ui-icon-add" oncomplete="PF('dlgAgregar').show()"></p:commandButton>						
 					<br/><br/>
 					
 					<h:form><p:remoteCommand name="prepararA" autoRun="true" update=":formOptions" actionListener="#{questionsAllBean.firstMultipleChoice()}" /></h:form>
 					
 					<h:form id="formOptions">
 						<p:dataTable id="tbl" value="#{questionsAllBean.getMultipleChoiceQuestion(questionsBean.question.idQuestion)}" var="q"
-									 emptyMessage="No hay opciones disponibles"
+									 emptyMessage="#{language.no_options_available}"
 									 rows="10" paginator="true" paginatorPosition="bottom"
 									 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 									 rowsPerPageTemplate="5,10,15" 
@@ -37,22 +37,22 @@
 									 
 							<p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 							
-						    <p:column headerText="Descripcion" filterBy="#{q.description}" filterMatchMode="contains">
+						    <p:column headerText="#{language.description}" filterBy="#{q.description}" filterMatchMode="contains">
 						        <h:outputText value="#{q.description}" />
 						    </p:column>
 						    
 						    <p:column style="width:15%;text-align: center">
-					            <p:commandButton actionListener="#{questionsAllBean.actualizarMC(q.idMultipleChoice,questionsBean.question.idQuestion)}" update=":formOptions" oncomplete="PF('dlgAgregar').show()" icon="ui-icon-pencil" title="Editar"/>					                
+					            <p:commandButton actionListener="#{questionsAllBean.actualizarMC(q.idMultipleChoice,questionsBean.question.idQuestion)}" update=":formOptions" oncomplete="PF('dlgAgregar').show()" icon="ui-icon-pencil" title="#{language.edit}"/>					                
 					            
-					            <p:commandButton update=":formOptions:tbl" actionListener="#{questionsAllBean.eliminarMC(q.idMultipleChoice)}" icon="ui-icon-trash" title="Eliminar">
-					            	<p:confirm header="Confirmación" message="Desea eliminar el registro?" icon="ui-icon-alert" />
+					            <p:commandButton update=":formOptions:tbl" actionListener="#{questionsAllBean.eliminarMC(q.idMultipleChoice)}" icon="ui-icon-trash" title="#{language.remove}">
+					            	<p:confirm header="#{language.confirmation}" message="#{language.delete_record}" icon="ui-icon-alert" />
 					            </p:commandButton>
 					        </p:column>		
 						</p:dataTable>
 						
 						<br/>
-						<p:commandButton update=":formOptions:tbl" icon="ui-icon-playlist-add-check" value="Eliminar elementos seleccionados" actionListener="#{questionsAllBean.eliminarVariosMC()}">
-							<p:confirm header="Confirmación" message="Desea eliminar los registros?" icon="ui-icon-alert" />
+						<p:commandButton update=":formOptions:tbl" icon="ui-icon-playlist-add-check" value="#{language.delete_selected_elements}" actionListener="#{questionsAllBean.eliminarVariosMC()}">
+							<p:confirm header="#{language.confirmation}" message="#{language.delete_records}" icon="ui-icon-alert" />
 						</p:commandButton>
 						
 						
@@ -61,22 +61,22 @@
 							<h:form>
 						            <p:panelGrid columns="1" id="panelAgregar" layout="grid" styleClass="ui-panelgrid-blank form-group">
 						            	<h:panelGroup styleClass="md-inputfield">						               
-							                <p:inputText id="oTitle" value="#{questionsAllBean.multipleChoice.description}" required="true" requiredMessage="Ingrese el titulo"/>
-		                                   	<label>Titulo</label>
+							                <p:inputText id="oTitle" value="#{questionsAllBean.multipleChoice.description}" required="true" requiredMessage="#{language.enter_title}"/>
+		                                   	<label>#{language.title}</label>
 		                                   	<p:message for="oTitle" />
 	                                   	</h:panelGroup>						                
 						            </p:panelGrid>
 						            
 						            <p:separator/>
-						            <p:commandButton value="Guardar" update="panelAgregar,:formOptions:tbl" actionListener="#{questionsAllBean.guardarMC()}" icon="ui ui-icon-add-circle-outline" oncomplete="if (!args.validationFailed){PF('dlgAgregar').hide();}else{PF('dlgAgregar').jq.effect('shake', {times:5}, 100);}"/>					                
-						            <p:commandButton value="Cancelar" update="panelAgregar" actionListener="#{questionsAllBean.cancelar()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgAgregar').hide()" immediate="true"/>						        
+						            <p:commandButton value="#{language.save}" update="panelAgregar,:formOptions:tbl" actionListener="#{questionsAllBean.guardarMC()}" icon="ui ui-icon-add-circle-outline" oncomplete="if (!args.validationFailed){PF('dlgAgregar').hide();}else{PF('dlgAgregar').jq.effect('shake', {times:5}, 100);}"/>					                
+						            <p:commandButton value="#{language.cancel}" update="panelAgregar" actionListener="#{questionsAllBean.cancelar()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgAgregar').hide()" immediate="true"/>						        
 					    	</h:form>
 					    </p:dialog>	
 						
 					</h:form>
 					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-						<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-						<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						<p:commandButton value="#{language.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="#{language.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 					</p:confirmDialog>
 				</p:panel>
 				

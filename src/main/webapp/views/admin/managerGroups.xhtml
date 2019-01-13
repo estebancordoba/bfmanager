@@ -6,26 +6,26 @@
                 template="/views/templates/admin/templateAdmin.xhtml">
     
     <ui:define name="breadcrumb">
-    	<li>Administracion</li>
+    	<li>#{language.administration}</li>
         <li>/</li>
-    	<li><p:link outcome="adminGroups">Grupos</p:link></li> 
+    	<li><p:link outcome="adminGroups">#{language.groups}</p:link></li> 
     	<li>/</li>
-    	<li>Asignar Usuarios</li>         
+    	<li>#{language.assign_users}</li>         
     </ui:define>
                 
     <ui:define name="content">
     
     	<p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="6000" escape="false" />
 
-		<p:panel id="pnl" header="Usuarios Asignados">					
+		<p:panel id="pnl" header="#{language.assigned_users}">					
 			<p:outputLabel id="nom_enc" value="Grupo: #{groupsBean.group.name}"/><br/><br/>					
 			<h:form>
-				<p:commandButton actionListener="#{groupsBean.cancelarUserGroup()}" value="Asignar Usuario" icon="ui ui-icon-add" oncomplete="PF('dlgAgregar').show()"></p:commandButton>						
+				<p:commandButton actionListener="#{groupsBean.cancelarUserGroup()}" value="#{language.assign_user}" icon="ui ui-icon-add" oncomplete="PF('dlgAgregar').show()"></p:commandButton>						
 			</h:form><br/>
 			
 			<h:form id="formUserGroup">
 				<p:dataTable id="tbl" value="#{groupsBean.getUserGroupxIdGroup(groupsBean.group.idGroup)}" var="q"
-							 emptyMessage="No hay usuarios disponibles"
+							 emptyMessage="#{language.no_users_available}"
 							 rows="10" paginator="true" paginatorPosition="bottom"
 							 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							 rowsPerPageTemplate="5,10,15" 
@@ -33,24 +33,24 @@
 				    
 				    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 				    
-				    <p:column headerText="Nick" filterBy="#{usersBean.getUserXId(q.idUser).user}" filterMatchMode="contains">
+				    <p:column headerText="#{language.nick_name}" filterBy="#{usersBean.getUserXId(q.idUser).user}" filterMatchMode="contains">
 				        <h:outputText value="#{usersBean.getUserXId(q.idUser).user}" />
 				    </p:column>
 				    
-				    <p:column headerText="Usuario" filterBy="#{usersBean.getUserXId(q.idUser).name} #{usersBean.getUserXId(q.idUser).surname}" filterMatchMode="contains">
+				    <p:column headerText="#{language.user}" filterBy="#{usersBean.getUserXId(q.idUser).name} #{usersBean.getUserXId(q.idUser).surname}" filterMatchMode="contains">
 				        <h:outputText value="#{usersBean.getUserXId(q.idUser).name} #{usersBean.getUserXId(q.idUser).surname}" />
 				    </p:column>
 				    
 				    <p:column style="width:15%;text-align: center">			            
-			            <p:commandButton update=":formUserGroup" actionListener="#{groupsBean.eliminarUserGroup(q.idUserGroup)}" icon="ui-icon-trash" title="Eliminar">
-			            	<p:confirm header="Confirmación" message="Desea eliminar el registro?" icon="ui-icon-alert" />
+			            <p:commandButton update=":formUserGroup" actionListener="#{groupsBean.eliminarUserGroup(q.idUserGroup)}" icon="ui-icon-trash" title="#{language.remove}">
+			            	<p:confirm header="#{language.confirmation}" message="#{language.delete_record}" icon="ui-icon-alert" />
 			            </p:commandButton>
 			        </p:column>		
 				</p:dataTable>
 				
 				<br/>
-				<p:commandButton update=":formUserGroup" icon="ui-icon-playlist-add-check" value="Eliminar elementos seleccionados" actionListener="#{groupsBean.eliminarVariosUserGroup()}">
-					<p:confirm header="Confirmación" message="Desea eliminar los registros?" icon="ui-icon-alert" />
+				<p:commandButton update=":formUserGroup" icon="ui-icon-playlist-add-check" value="#{language.delete_selected_elements}" actionListener="#{groupsBean.eliminarVariosUserGroup()}">
+					<p:confirm header="#{language.confirmation}" message="#{language.delete_records}" icon="ui-icon-alert" />
 				</p:commandButton>
 				
 				<h:form id="formAgregar">
@@ -60,7 +60,7 @@
 				            <p:panelGrid styleClass="ui-panelgrid-blank form-group" columns="1" layout="grid">			            
 		                        
                                	<h:panelGroup>							        
-							        <label for="usuario">Usuario(s): </label><br/>		  		                                		                               		
+							        <label for="usuario">#{language.users}: </label><br/>		  		                                		                               		
                                    	<p:selectCheckboxMenu id="usuario" value="#{groupsBean.usersS}" panelStyle="width:20%"
                                    		             effect="fade" multiple="true" filter="true" filterMatchMode="startsWith">										                                   		                                                							                														
 										<f:selectItems value="#{usersBean.getUsuariosAvailable(groupsBean.group.idGroup)}" var="u" itemLabel="#{u.user}" itemValue="#{u.idUser}"/>
@@ -70,15 +70,15 @@
 				                						                
 				            </p:panelGrid>
 				            <p:separator/>
-				            <p:commandButton value="Agregar" update=":formUserGroup" actionListener="#{groupsBean.guardarUsersxGroup(groupsBean.group.idGroup)}" icon="ui ui-icon-add-circle-outline" oncomplete="PF('dlgAgregar').hide()"/>					                
-				            <p:commandButton value="Cancelar" update=":formUserGroup" actionListener="#{groupsBean.cancelarUserGroup()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgAgregar').hide()"/>
+				            <p:commandButton value="#{language.add}" update=":formUserGroup" actionListener="#{groupsBean.guardarUsersxGroup(groupsBean.group.idGroup)}" icon="ui ui-icon-add-circle-outline" oncomplete="PF('dlgAgregar').hide()"/>					                
+				            <p:commandButton value="#{language.cancel}" update=":formUserGroup" actionListener="#{groupsBean.cancelarUserGroup()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgAgregar').hide()"/>
 				        </p:outputPanel>
 				    </p:dialog>	
 				</h:form>
 			</h:form>
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-				<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				<p:commandButton value="#{language.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{language.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
 		</p:panel>
     

@@ -6,26 +6,26 @@
                 template="/views/templates/admin/templateAdmin.xhtml">
     
     <ui:define name="breadcrumb">
-    	<li>Cuestionarios</li>
+    	<li>#{language.surveys}</li>
         <li>/</li>
-        <li><p:link outcome="surveys">Administracion</p:link></li>
+        <li><p:link outcome="surveys">#{language.administration}</p:link></li>
         <li>/</li>
-        <li>Asignacion de Grupos</li>
+        <li>#{language.group_assignment}</li>
     </ui:define>
                 
     <ui:define name="content">
     
     	<p:growl id="growl" showDetail="true" showSummary="true" autoUpdate="true" life="6000" escape="false" />
 
-		<p:panel id="pnl" header="Grupos Asignados">					
-			<p:outputLabel id="nom_enc" value="Cuestionario: #{surveysBean.survey.title}"/><br/><br/>					
+		<p:panel id="pnl" header="#{language.assigned_groups}">					
+			<p:outputLabel id="nom_enc" value="#{language.survey}: #{surveysBean.survey.title}"/><br/><br/>					
 			<h:form>
-				<p:commandButton actionListener="#{groupsBean.cancelarSurveyGroup()}" value="Asignar Grupo" icon="ui ui-icon-add" oncomplete="PF('dlgAgregar').show()"></p:commandButton>						
+				<p:commandButton actionListener="#{groupsBean.cancelarSurveyGroup()}" value="#{language.assign_group}" icon="ui ui-icon-add" oncomplete="PF('dlgAgregar').show()"></p:commandButton>						
 			</h:form><br/>
 			
 			<h:form id="formGroups">
 				<p:dataTable id="tbl" value="#{groupsBean.getSurveyGroupsxIdSurvey(surveysBean.survey.idSurvey)}" var="q"
-							 emptyMessage="No hay grupos asignados"
+							 emptyMessage="#{language.no_assigned_groups}"
 							 rows="10" paginator="true" paginatorPosition="bottom"
 							 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							 rowsPerPageTemplate="5,10,15" 
@@ -33,24 +33,24 @@
 				    
 				    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 				    
-				    <p:column headerText="Nombre" filterBy="#{groupsBean.getGroupxId(q.idGroup).name}" filterMatchMode="contains">
+				    <p:column headerText="#{language.name}" filterBy="#{groupsBean.getGroupxId(q.idGroup).name}" filterMatchMode="contains">
 				        <h:outputText value="#{groupsBean.getGroupxId(q.idGroup).name}" />
 				    </p:column>
 				    
-				    <p:column headerText="Descripcion" filterBy="#{groupsBean.getGroupxId(q.idGroup).description}" filterMatchMode="contains">
+				    <p:column headerText="#{language.description}" filterBy="#{groupsBean.getGroupxId(q.idGroup).description}" filterMatchMode="contains">
 				        <h:outputText value="#{groupsBean.getGroupxId(q.idGroup).description}" />
 				    </p:column>
 				    
 				    <p:column style="width:15%;text-align: center">			            
-			            <p:commandButton update=":formGroups" actionListener="#{groupsBean.eliminarSurveyGroup(q.idSurveyGroup)}" icon="ui-icon-trash" title="Eliminar">
-			            	<p:confirm header="Confirmación" message="Desea eliminar el registro?" icon="ui-icon-alert" />
+			            <p:commandButton update=":formGroups" actionListener="#{groupsBean.eliminarSurveyGroup(q.idSurveyGroup)}" icon="ui-icon-trash" title="#{language.remove}">
+			            	<p:confirm header="#{language.confirmation}" message="#{language.delete_record}" icon="ui-icon-alert" />
 			            </p:commandButton>
 			        </p:column>		
 				</p:dataTable>
 				
 				<br/>
-				<p:commandButton update=":formGroups" icon="ui-icon-playlist-add-check" value="Eliminar elementos seleccionados" actionListener="#{groupsBean.eliminarVariosSurveyGroup()}">
-					<p:confirm header="Confirmación" message="Desea eliminar los registros?" icon="ui-icon-alert" />
+				<p:commandButton update=":formGroups" icon="ui-icon-playlist-add-check" value="#{language.delete_selected_elements}" actionListener="#{groupsBean.eliminarVariosSurveyGroup()}">
+					<p:confirm header="#{language.confirmation}" message="#{language.delete_records}" icon="ui-icon-alert" />
 				</p:commandButton>
 				
 				<h:form id="formAgregar">
@@ -59,8 +59,8 @@
 				        <p:outputPanel id="pAgregar">
 				            <p:panelGrid styleClass="ui-panelgrid-blank form-group" columns="1" layout="grid">				            
 		                        <h:panelGroup>		                 
-                               		<label for="group">Grupo: </label>		  		                                		                               		
-                                   	<p:selectCheckboxMenu id="group" value="#{groupsBean.groupsS}" placeholder="Usuario" panelStyle="width:20%"
+                               		<label for="group">#{language.group}: </label>		  		                                		                               		
+                                   	<p:selectCheckboxMenu id="group" value="#{groupsBean.groupsS}" placeholder="#{language.user}" panelStyle="width:20%"
                                    		             effect="fade" multiple="true" filter="true" filterMatchMode="startsWith">
                                    							                														
 										<f:selectItems value="#{groupsBean.getGroupsAvailable(surveysBean.survey.idSurvey)}" var="u" itemLabel="#{u.name}" itemValue="#{u.idGroup}"/>
@@ -70,15 +70,15 @@
 				                						                
 				            </p:panelGrid>
 				            <p:separator/>
-				            <p:commandButton value="Agregar" update=":formGroups" actionListener="#{groupsBean.guardarSurveyxGroup(surveysBean.survey.idSurvey)}" icon="ui ui-icon-add-circle-outline" oncomplete="PF('dlgAgregar').hide()"/>					                
-				            <p:commandButton value="Cancelar" update=":formGroups" actionListener="#{groupsBean.cancelarSurveyGroup()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgAgregar').hide()"/>
+				            <p:commandButton value="#{language.add}" update=":formGroups" actionListener="#{groupsBean.guardarSurveyxGroup(surveysBean.survey.idSurvey)}" icon="ui ui-icon-add-circle-outline" oncomplete="PF('dlgAgregar').hide()"/>					                
+				            <p:commandButton value="#{language.cancel}" update=":formGroups" actionListener="#{groupsBean.cancelarSurveyGroup()}" icon="ui ui-icon-cancel" oncomplete="PF('dlgAgregar').hide()"/>
 				        </p:outputPanel>
 				    </p:dialog>	
 				</h:form>
 			</h:form>
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-				<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				<p:commandButton value="#{language.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{language.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
 		</p:panel>
     

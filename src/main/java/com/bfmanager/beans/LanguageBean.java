@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import javax.faces.bean.ManagedBean;
@@ -57,7 +58,10 @@ public class LanguageBean implements Serializable {
 	
 	public static String obtenerMensaje(String name){		
 		String message = archivoProperties.getProperty(name);
-		if(message == null) message=name;
+		if(message == null) return name;
+		try {
+			message = new String(message.getBytes("ISO-8859-1"), "UTF-8");			
+		} catch (UnsupportedEncodingException e) {}		
 		return message;
 	}
 }

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+        <!-- SQL dialect, only thing required for Spring. 
+        For stanalone application, other DB configs are required -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        
+        <!-- Mapas de los pojos -->
+        <mapping resource="/com/bfmanager/model/hibernate/UsersType.hbm.xml" />
+		<mapping resource="/com/bfmanager/model/hibernate/Users.hbm.xml" />	
+		<mapping resource="/com/bfmanager/model/hibernate/Surveys.hbm.xml" />
+		<mapping resource="/com/bfmanager/model/hibernate/QuestionsType.hbm.xml" />
+		<mapping resource="/com/bfmanager/model/hibernate/Questions.hbm.xml" />	
+		<mapping resource="/com/bfmanager/model/hibernate/MultipleChoice.hbm.xml" />		
+		<mapping resource="/com/bfmanager/model/hibernate/Answers.hbm.xml" />
+		<mapping resource="/com/bfmanager/model/hibernate/DropDown.hbm.xml" />		
+		<mapping resource="/com/bfmanager/model/hibernate/Ratings.hbm.xml" />
+		<mapping resource="/com/bfmanager/model/hibernate/SurveysType.hbm.xml" />
+		<mapping resource="/com/bfmanager/model/hibernate/BfDimensions.hbm.xml" />
+		<mapping resource="/com/bfmanager/model/hibernate/BfNormalization.hbm.xml" />
+		<mapping resource="/com/bfmanager/model/hibernate/BfResults.hbm.xml" />
+		<mapping resource="/com/bfmanager/model/hibernate/BfValueQuestions.hbm.xml" />
+		<mapping resource="/com/bfmanager/model/hibernate/Groups.hbm.xml" />
+		<mapping resource="/com/bfmanager/model/hibernate/UserGroup.hbm.xml" />
+		<mapping resource="/com/bfmanager/model/hibernate/SurveyGroup.hbm.xml" />
+		
+		<!-- /Mapas de los pojos -->	
+    </session-factory>
+
+</hibernate-configuration>

@@ -24,7 +24,17 @@
 				<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
 				    <p:graphicImage name="images/ajaxloadingbar.gif" />
 				</p:dialog>
-    			
+				
+				<h:form>     										
+					<p:confirmDialog global="true" widgetVar="dlgTerms" showEffect="fade" hideEffect="fade" header="#{language.terms}" closable="false" visible="#{surveysBean.survey.showTerms}" style="max-width: 60rem;">
+						<p:commandButton value="#{language.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" onclick="acceptTerms()"/>
+						<p:commandButton value="#{language.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  onclick="noAcceptTerms()"/>
+						<f:facet name="message">
+							<h:outputFormat value="#{surveysBean.survey.terms}" escape="false"/>
+						</f:facet>
+					</p:confirmDialog>
+				</h:form>
+        			
                 <h:form id="formShowSurveys">
                 	<p:graphicImage value="#{showSurveyBean.colocarBanner(showSurveyBean.survey.idSurvey)}" height="100%" width="100%" />
                 	
@@ -32,7 +42,7 @@
 					
 					<br/>
 					<div style="text-align:center;">
-						<p:commandButton style="width: 50%; margin: 0 auto; display: inline-block;" icon="ui-icon-check" value="Enviar" action="#{showSurveyBean.saveAnswers(false)}" type="submit" update=":formShowSurveys"/>
+						<p:commandButton widgetVar="sendButton" style="width: 50%; margin: 0 auto; display: inline-block;" icon="ui-icon-check" value="#{language.send}" action="#{showSurveyBean.saveAnswers(false)}" type="submit" update=":formShowSurveys"/>
 					</div>			
 				</h:form>
 					

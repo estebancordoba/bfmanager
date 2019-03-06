@@ -179,7 +179,7 @@
     	    					</p:tab>
     	    					<p:tab title="#{language.optionals}"> 
     	    						<div class="row">
-    	    							<p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+    	    							<p:panelGrid columns="5" layout="grid" styleClass="ui-panelgrid-blank form-group">
 		                                	<h:panelGroup styleClass="md-inputfield">
 		                                    	<p:inputTextarea id="c_copyright" scrollHeight="" rows="3" autoResize="false" value="#{surveysBean.survey.copyright}"
 		                                    	counter="displayC" maxlength="1000" counterTemplate="{0}"/>
@@ -192,7 +192,7 @@
 		                                		<h:outputText value="#{language.free}: " for="c_libre"/>
 								        		<p:selectBooleanCheckbox id="c_libre" value="#{surveysBean.survey.free}"/>         	
 		                                	</h:panelGroup>
-		                                	
+										
 		                                	<h:panelGroup>		                                				  		                                		                               		
 		                                    	<p:selectOneMenu id="surveyType" value="#{surveysBean.survey.surveyType}" converter="#{surveyTypeConverter}" placeholder="#{language.type}"
 		                                    					  required="true" requiredMessage="#{language.select_type_survey}">
@@ -204,9 +204,14 @@
 		                                	</h:panelGroup>
 		                                	
 		                                	<h:panelGroup>
-		                                		<h:outputText value="#{language.reply_only_once}" for="c_onlyOnce"/>
+		                                		<h:outputText value="#{language.reply_only_once}: " for="c_onlyOnce"/>
 								        		<p:selectBooleanCheckbox id="c_onlyOnce" value="#{surveysBean.survey.onlyOnce}"
 								        		disabled="#{surveysBean.survey.surveyType.idSurveyType==2 ? true:false}" />								        												        			          	
+											</h:panelGroup>
+											
+											<h:panelGroup>
+		                                		<h:outputText value="#{language.show_terms}: " for="c_terms"/>
+								        		<p:selectBooleanCheckbox id="c_terms" value="#{surveysBean.survey.showTerms}"/>         	
 		                                	</h:panelGroup>
 					                								                	
 	        							</p:panelGrid> 
@@ -217,7 +222,37 @@
 				                          update="uImg" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
 				                          label="#{language.choose}"/>					                      				                          
 				                         <p:graphicImage styleClass="col s5" width="100%" height="70" id="uImg" value="#{surveysBean.uImagen}"/>
-			                        </div> 
+									</div> 
+									<div class="row">
+						                <h:outputText value="#{language.terms}:" styleClass="col s2"/>						                
+						                <p:textEditor widgetVar="editorTerms" styleClass="col s10" value="#{surveysBean.survey.terms}" placeholder="#{language.enter_terms}" height="80">
+									        <f:facet name="toolbar">
+									             <span class="ql-formats">
+									                <button class="ql-bold"></button>
+									                <button class="ql-italic"></button>
+									                <button class="ql-underline"></button>
+									                <button class="ql-strike"></button>
+									            </span>
+									            <span class="ql-formats">
+									                <select class="ql-font"></select>
+									                <select class="ql-size"></select>
+									            </span>
+									            <span class="ql-formats">
+									                <select class="ql-color"></select>
+									                <select class="ql-background"></select>
+									            </span>
+									             <span class="ql-formats">
+									                 <button class="ql-script" value="sub"></button>
+									                 <button class="ql-script" value="super"></button>
+									            </span>
+									            <span class="ql-formats">
+									                 <button class="ql-list" value="ordered"></button>
+									                 <button class="ql-list" value="bullet"></button>
+									                 <select class="ql-align"></select>
+									            </span>
+									        </f:facet>
+									    </p:textEditor>
+								    </div>
 				                             	    							
     	    					</p:tab>
    	    					</p:tabView>

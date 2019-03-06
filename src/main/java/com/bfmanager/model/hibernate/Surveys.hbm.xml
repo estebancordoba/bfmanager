@@ -36,6 +36,12 @@
         <property generated="never" lazy="false" name="activated" optimistic-lock="true" type="java.lang.Boolean" unique="false">
             <column name="activated"/>
         </property>
+        <property generated="never" lazy="false" name="showTerms" optimistic-lock="true" type="java.lang.Boolean" unique="false">
+            <column name="show_terms"/>
+        </property>
+        <property generated="never" lazy="false" name="terms" optimistic-lock="true" type="string" unique="false">
+            <column length="65535" name="terms"/>
+        </property>
         <many-to-one name="surveyType" class="com.bfmanager.model.hibernate.SurveysType" fetch="select">
             <column name="survey_type" not-null="true" />
         </many-to-one> 

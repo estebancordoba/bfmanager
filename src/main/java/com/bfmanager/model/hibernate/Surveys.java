@@ -20,6 +20,8 @@ private static final long serialVersionUID = 1L;
 	private SurveysType surveyType;
 	private Boolean onlyOnce;
 	private Boolean activated = false;
+	private Boolean showTerms = false;
+	private String terms;
 
 	public Surveys() {
 	}
@@ -32,7 +34,7 @@ private static final long serialVersionUID = 1L;
 	}
 
 	public Surveys(String title, String description, Users userOwner, String instructions, String shortDescription,
-			Boolean free, byte[] banner, String copyright, SurveysType surveyType, Boolean onlyOnce, Boolean activated) {
+			Boolean free, byte[] banner, String copyright, SurveysType surveyType, Boolean onlyOnce, Boolean activated, Boolean showTerms, String terms) {
 		this.title = title;
 		this.description = description;
 		this.userOwner = userOwner;
@@ -44,6 +46,8 @@ private static final long serialVersionUID = 1L;
 		this.surveyType = surveyType;
 		this.onlyOnce = onlyOnce;
 		this.activated = activated;
+		this.showTerms = showTerms;
+		this.terms = terms;
 	}
 
 	public Integer getIdSurvey() {
@@ -140,6 +144,22 @@ private static final long serialVersionUID = 1L;
 
 	public void setActivated(Boolean activated) {
 		this.activated = activated;
+	}
+	
+	public Boolean getShowTerms() {
+		return this.showTerms;
+	}
+
+	public void setShowTerms(Boolean showTerms) {
+		this.showTerms = showTerms;
+	}
+	
+	public String getTerms() {
+		return this.terms;
+	}
+
+	public void setTerms(String terms) {
+		this.terms = terms;
 	}
 
 }

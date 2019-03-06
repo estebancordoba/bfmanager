@@ -13,3 +13,13 @@ function exportCanvas() {
 		saveAs(blob, "dimensiones.png");
 	});
 }
+
+function acceptTerms() {
+    PF('dlgTerms').hide();
+    PF('sendButton').enable();
+}
+
+function noAcceptTerms() {    
+    PF('dlgTerms').hide();
+    PF('sendButton').disable(); 
+}

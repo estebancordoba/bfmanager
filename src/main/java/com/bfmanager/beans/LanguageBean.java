@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import javax.faces.bean.ManagedBean;
@@ -23,10 +22,12 @@ public class LanguageBean implements Serializable {
 	private static Properties archivoProperties;
 	
 	public String getLanguage() {
+		System.out.println("LANGUAGE GET: "+language);
 		return language;
 	}
 
 	public void setLanguage(String language) {
+		System.out.println("LANGUAGE SET: "+language);
 		this.language = language;
 	}
 	
@@ -46,7 +47,7 @@ public class LanguageBean implements Serializable {
 			String path = servletContext.getRealPath("") + File.separatorChar
 					+ "WEB-INF" + File.separatorChar + "classes" + File.separatorChar + "com"+ File.separatorChar + "bfmanager"+ File.separatorChar + "languages"
 					+ File.separatorChar + "messages_"+language+".properties";
-							
+						
 			archivoProperties.load(new FileInputStream(path));
 			
 		} catch (FileNotFoundException e) {
@@ -56,12 +57,9 @@ public class LanguageBean implements Serializable {
 		}
 	}
 	
-	public static String obtenerMensaje(String name){		
+	public static String obtenerMensaje(String name){
 		String message = archivoProperties.getProperty(name);
-		if(message == null) return name;
-		try {
-			message = new String(message.getBytes("ISO-8859-1"), "UTF-8");			
-		} catch (UnsupportedEncodingException e) {}		
+		if(message == null) return name;			
 		return message;
 	}
 }

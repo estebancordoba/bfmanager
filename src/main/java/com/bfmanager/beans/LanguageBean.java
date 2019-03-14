@@ -22,7 +22,6 @@ public class LanguageBean implements Serializable {
 	private static Properties archivoProperties;
 	
 	public String getLanguage() {
-		System.out.println("LANGUAGE GET: "+language);
 		return language;
 	}
 

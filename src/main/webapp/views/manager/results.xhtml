@@ -13,7 +13,7 @@
                 
     <ui:define name="content">    	
     	
-    	<p:dialog widgetVar="dlgGroup" header="#{language.choose_group}" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true">    		
+    	<p:dialog widgetVar="dlgGroup" header="#{language.choose_group}" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true" class="max-w-xs">    		
        		<h:form id="formGroup">
 				<p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">	  		                                		                               		
 	                <p:selectOneMenu required="true" requiredMessage="#{language.should_choose_group}" id="group" value="#{showStatisticsBean.id_group}" placeholder="#{language.group}"

@@ -54,13 +54,13 @@
 				</p:commandButton>
 				
 				<h:form id="formAgregar">
-					<p:dialog widgetVar="dlgAgregar" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true">
+					<p:dialog widgetVar="dlgAgregar" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true" class="max-w-xs">
 					<p:ajax event="close" update=":formGroups" listener="#{groupsBean.cancelarSurveyGroup()}" />							
 				        <p:outputPanel id="pAgregar">
 				            <p:panelGrid styleClass="ui-panelgrid-blank form-group" columns="1" layout="grid">				            
 		                        <h:panelGroup>		                 
                                		<label for="group">#{language.group}: </label>		  		                                		                               		
-                                   	<p:selectCheckboxMenu id="group" value="#{groupsBean.groupsS}" placeholder="#{language.user}" panelStyle="width:20%"
+                                   	<p:selectCheckboxMenu id="group" value="#{groupsBean.groupsS}" placeholder="#{language.user}" panelStyle="width:auto"
                                    		             effect="fade" multiple="true" filter="true" filterMatchMode="startsWith">
                                    							                														
 										<f:selectItems value="#{groupsBean.getGroupsAvailable(surveysBean.survey.idSurvey)}" var="u" itemLabel="#{u.name}" itemValue="#{u.idGroup}"/>

@@ -83,7 +83,7 @@
 						</p:commandButton>	
 						
 						
-						<p:dialog showHeader="false" closeOnEscape="true" position="center,center-10%" height="60%" width="60%" widgetVar="dlgAgregar" id="dialogA" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true">
+						<p:dialog showHeader="false" closeOnEscape="true" header="#{language.new_survey}" widgetVar="dlgAgregar" id="dialogA" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true" class="w-3/4 max-w-2xl overflow-y-auto max-h-dialog pin-t-5 pin-l-auto">
 							<p:ajax event="close" update=":formSurveys:dialogA" listener="#{surveysBean.renovar()}" />
 							<h:form enctype="multipart/form-data">	
 							<p:tabView id="tabA">								

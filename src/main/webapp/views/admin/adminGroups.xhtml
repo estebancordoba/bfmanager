@@ -60,7 +60,7 @@
 							<p:confirm header="#{language.confirmation}" message="#{language.delete_records}" icon="ui-icon-alert" />
 						</p:commandButton>
 		    
-					    <p:dialog widgetVar="dlgAgregar" closeOnEscape="true" id="dialogA" responsive="true" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+					    <p:dialog widgetVar="dlgAgregar" closeOnEscape="true" id="dialogA" responsive="true" modal="true" showEffect="fade" hideEffect="fade" resizable="false" class="max-w-sm">
 					    	<p:ajax event="close" update=":formGroups:dialogA" listener="#{groupsBean.cancelarGroup()}" />				    
 							<h:form>														
 					            <p:panelGrid columns="1" id="panelAgregar" layout="grid" styleClass="ui-panelgrid-blank form-group">

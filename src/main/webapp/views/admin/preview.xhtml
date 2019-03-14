@@ -27,9 +27,9 @@
 				</center>
 								
 				<p:stack icon="/resources/images/menu_stack.png" expanded="true">		    
-				    <p:menuitem value="#{cw_language.instructions}" icon="/resources/images/instrucciones.png" url="#" onclick="PF('dlgI').show()"/>
+				    <p:menuitem value="#{language.instructions}" icon="/resources/images/instrucciones.png" url="#" onclick="PF('dlgI').show()"/>
 				</p:stack>
-				<p:dialog widgetVar="dlgI" modal="true" header="#{cw_language.instructions}" resizable="false" showEffect="clip" hideEffect="clip" width="60%">
+				<p:dialog widgetVar="dlgI" modal="true" header="#{language.instructions}" resizable="false" showEffect="clip" hideEffect="clip" class="max-w-lg">
 					<h:outputText value="#{showSurveyBean.instrucciones}" escape="false"/>
 				</p:dialog>	 					
             </ui:define>

@@ -9,7 +9,7 @@
     <div class="layout-topbar">
     	<p:growl id="growlMsgs" sticky="true" showDetail="true" life="3000" />
     	    
-	    <p:dialog header="#{language.suggestions}" id="dialogS" widgetVar="dlgSug" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="50%">
+	    <p:dialog header="#{language.suggestions}" id="dialogS" widgetVar="dlgSug" modal="true" showEffect="fade" hideEffect="fade" resizable="false" class="max-w-md">
 			<p:ajax event="close" update=":dialogS" listener="#{ratingsBean.cancelar()}"/>
 			<h:form>	
 				<p:outputPanel id="panelA">			
@@ -51,7 +51,7 @@
 				</h:form>  		        		
     		</p:dialog>
 		    
-		    <p:dialog widgetVar="dlgFirst" visible="#{usersBean.obtenerUsuarioFirst(usersBean.obtenerUsuario().idUser)}" header="Por favor cambie su contraseña" responsive="true" modal="true" showEffect="fade" hideEffect="fade" resizable="false" closable="false">
+		    <p:dialog widgetVar="dlgFirst" visible="#{usersBean.obtenerUsuarioFirst(usersBean.obtenerUsuario().idUser)}" header="#{language.please_change_password}" responsive="true" modal="true" showEffect="fade" hideEffect="fade" resizable="false" closable="false" class="max-w-sm">
 				<h:form>	    			
     				<p:panelGrid id="matchGrid" columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
 																

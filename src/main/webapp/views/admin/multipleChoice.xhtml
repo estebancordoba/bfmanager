@@ -56,7 +56,7 @@
 						</p:commandButton>
 						
 						
-						<p:dialog widgetVar="dlgAgregar" closeOnEscape="true" id="dialogA" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+						<p:dialog widgetVar="dlgAgregar" closeOnEscape="true" id="dialogA" modal="true" showEffect="fade" hideEffect="fade" resizable="false" class="max-w-sm">
 							<p:ajax event="close" update=":formOptions:dialogA" listener="#{questionsAllBean.renovarMC(questionsBean.question.idQuestion)}" />
 							<h:form>
 						            <p:panelGrid columns="1" id="panelAgregar" layout="grid" styleClass="ui-panelgrid-blank form-group">

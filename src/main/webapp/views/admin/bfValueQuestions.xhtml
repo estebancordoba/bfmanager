@@ -45,11 +45,11 @@
 								<f:selectItem itemLabel="#{language.negative}" itemValue="false"/>								
 							</p:selectOneMenu>
 						</f:facet>
-						<h:outputText value="#{q.addition ? '#{language.positive}':'#{language.negative}'}" />
+						<h:outputText value="#{q.addition ? language.positive:language.negative}" />
 					</p:column>
 				 
 				    <p:column headerText="#{language.reverse}">
-				    	<h:outputText value="#{q.reverse? '#{language.yes}':'#{language.no}'}" />						    							    	
+				    	<h:outputText value="#{q.reverse? language.yes:language.no}" />						    							    	
 				    </p:column>
 				    
 				    <p:column headerText="#{language.question}" filterBy="#{bigFiveBean.getQuestionTitle(q.idQuestion)}" filterMatchMode="contains">
@@ -72,7 +72,7 @@
 					<p:confirm header="#{language.confirmation}" message="#{language.delete_records}" icon="ui-icon-alert" />
 				</p:commandButton>
 				
-				<p:dialog widgetVar="dlgAgregar" id="dialogA" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="50%">					
+				<p:dialog widgetVar="dlgAgregar" id="dialogA" modal="true" showEffect="fade" hideEffect="fade" resizable="false" class="max-w-md">					
 					<p:ajax event="close" update=":formValueQuestions:dialogA" listener="#{bigFiveBean.cancelarValueQuestion()}" />		
 					<h:form>					
 				        
@@ -88,7 +88,7 @@
 	                        </h:panelGroup>	                        
 	                        
 	                        <h:panelGroup>												                						                
-				                <p:selectOneMenu id="id_question_vp" value="#{bigFiveBean.bf_value_question.idQuestion}" required="true" requiredMessage="#{language.select_question}">
+				                <p:selectOneMenu id="id_question_vp" value="#{bigFiveBean.bf_value_question.idQuestion}" required="true" requiredMessage="#{language.select_question}" panelStyleClass="max-w-sm">
 				                	<f:selectItem itemLabel="#{language.question}" itemValue="#{null}" itemDisabled="true" noSelectionOption="true" />											
 									<f:selectItems value="#{bigFiveBean.getQuestionsxIdSurveyAvailable(surveysBean.survey.idSurvey,bigFiveBean.bf_dimension.idBfDimension)}" var="qt" itemLabel="#{qt.title}" itemValue="#{qt.idQuestion}" />
 								</p:selectOneMenu>         	

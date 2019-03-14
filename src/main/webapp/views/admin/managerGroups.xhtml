@@ -54,14 +54,14 @@
 				</p:commandButton>
 				
 				<h:form id="formAgregar">
-					<p:dialog widgetVar="dlgAgregar" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true">
+					<p:dialog widgetVar="dlgAgregar" modal="true" showEffect="fade" hideEffect="fade" resizable="false" responsive="true" class="max-w-sm">
 					<p:ajax event="close" update=":formUserGroup" listener="#{groupsBean.cancelarUserGroup()}" />							
 				        <p:outputPanel id="pAgregar">
 				            <p:panelGrid styleClass="ui-panelgrid-blank form-group" columns="1" layout="grid">			            
 		                        
                                	<h:panelGroup>							        
 							        <label for="usuario">#{language.users}: </label><br/>		  		                                		                               		
-                                   	<p:selectCheckboxMenu id="usuario" value="#{groupsBean.usersS}" panelStyle="width:20%"
+                                   	<p:selectCheckboxMenu id="usuario" value="#{groupsBean.usersS}" panelStyle="width:auto"
                                    		             effect="fade" multiple="true" filter="true" filterMatchMode="startsWith">										                                   		                                                							                														
 										<f:selectItems value="#{usersBean.getUsuariosAvailable(groupsBean.group.idGroup)}" var="u" itemLabel="#{u.user}" itemValue="#{u.idUser}"/>
 									</p:selectCheckboxMenu>

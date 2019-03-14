@@ -76,7 +76,7 @@
                     <p:dataExporter type="csv" target="tblBFI" fileName="bigfive_#{surveysBean.survey.title}_#{groupsBean.getGroupxId(answersBean.id_group).name}" pageOnly="false" />
                 </h:commandLink>
 				
-				<p:dialog position="center,center-20%" id="dialogR" header="Resultados: #{bigFiveBean.user_chart.name} #{bigFiveBean.user_chart.surname} (#{bigFiveBean.user_chart.user})" widgetVar="dlgRes" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="50%">																									
+				<p:dialog id="dialogR" header="Resultados: #{bigFiveBean.user_chart.name} #{bigFiveBean.user_chart.surname} (#{bigFiveBean.user_chart.user})" widgetVar="dlgRes" modal="true" showEffect="fade" hideEffect="fade" resizable="false" class="max-w-xl overflow-y-auto pin-t-5 pin-l-auto">																									
 					<p:panel header="#{language.dimensions}">	
 		            	 <div style="text-align:center;">
 							<p:commandButton id="expDim" type="button" style="margin: 0 auto; display: inline-block;" icon="ui-icon-help"/>

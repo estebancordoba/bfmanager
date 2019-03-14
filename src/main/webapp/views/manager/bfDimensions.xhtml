@@ -68,7 +68,7 @@
 					<p:confirm header="#{language.confirmation}" message="#{language.delete_records}" icon="ui-icon-alert" />
 				</p:commandButton>
 				
-				<p:dialog widgetVar="dlgAgregar" id="dialogA" modal="true" showEffect="fade" hideEffect="fade" resizable="false">					
+				<p:dialog widgetVar="dlgAgregar" id="dialogA" modal="true" showEffect="fade" hideEffect="fade" resizable="false" class="max-w-sm pin-t-5 overflow-y-auto">					
 					<p:ajax event="close" update=":formDimensions:dialogA" listener="#{bigFiveBean.cancelarDimension()}" />	
 					<h:form>						
 				        
